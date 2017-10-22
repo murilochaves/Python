@@ -10,3 +10,7 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - Tipagem dinâmica: as variáveis se ajustam aos valores recebidos;
     - Necessidade de identação: código limpo - não precisa usar '{}';
     - Diversos Frameworks: [web](https://www.djangoproject.com), [mobile](https://kivy.org/#home), [desktop](https://wiki.python.org/moin/TkInter)
+
+- **Códigos**
+    - [devMed - Olá Mundo!](./devMed/olaMundo.py)
+    - [devMed - Notas Ulbra v.1](./devMed/notasUlbra.py)
