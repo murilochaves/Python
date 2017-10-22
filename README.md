@@ -12,5 +12,6 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - Diversos Frameworks: [web](https://www.djangoproject.com), [mobile](https://kivy.org/#home), [desktop](https://wiki.python.org/moin/TkInter)
 
 - **Códigos**
-    - [devMed - Olá Mundo!](./devMed/olaMundo.py)
-    - [devMed - Notas Ulbra v.1](./devMed/notasUlbra.py)
+    - devMed
+        - [Olá Mundo!](./devMed/olaMundo.py)
+        - [Notas Ulbra v.1](./devMed/notasUlbra.py)
