@@ -16,8 +16,8 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
         - [Olá Mundo](./devMed/olaMundo.py)
         - [Notas Ulbra v.1](./devMed/notasUlbra.py)
 
-## Observações
+### Observações
 
-- **Versão**: 2.7.10
-- **IDE**: Microsoft Visual Studio Code
-- **Execução**: Terminal - macOS Sierra 10.12.6
+- **Versão**: [Python](https://www.python.org) v.2.7.10
+- **IDE**: [Microsoft Visual Studio Code](https://code.visualstudio.com) v.1.17.2
+- **Execução**: [Terminal](https://support.apple.com/pt-br/guide/terminal/welcome) - macOS Sierra v.10.12.6
