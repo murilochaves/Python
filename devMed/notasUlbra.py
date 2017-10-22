@@ -21,3 +21,5 @@ elif (grauFinal >= 4) and (grauFinal <= 6):
     print('Media Final: %.1f - SUBSTITUTIVA' % grauFinal)
 else:
     print('Media Final: %.1f - Reprovado' % grauFinal)
+
+# FAZER SUB1 e SUB2 -> SUB 1 + SUB 2*2/3
