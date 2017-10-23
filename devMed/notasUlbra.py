@@ -22,4 +22,4 @@ elif (grauFinal >= 4) and (grauFinal <= 6):
 else:
     print('Media Final: %.1f - Reprovado' % grauFinal)
 
-# FAZER SUB1 e SUB2 -> SUB 1 + SUB 2*2/3
+# FAZER SUB1 e SUB2 -> SUB 1 + SUB 2*2/3 
