@@ -17,7 +17,7 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - [Notas Ulbra v.1](./devMed/notasUlbra.py)
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
-        - [Adaline](./Inteligência Artificial/Redes Neurais Artificiais/Adaline/);
+        - [Adaline](./Inteligência%20Artificial/Redes%20Neurais%20Artificiais/Adaline);
 
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
