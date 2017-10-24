@@ -18,12 +18,11 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
         - Neurônio de McCulloch-Pitts;
-        - Treinamento de Hebb;
+        - Aprendizado de Hebb;
         - Perceptron;
         - [Adaline](./Inteligência%20Artificial/Redes%20Neurais%20Artificiais/Adaline);
-        - Backpropagation;
         - Kohonen;
-        - LVQ;
+        - Backpropagation;
 
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
