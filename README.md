@@ -17,7 +17,8 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - [Notas Ulbra v.1](./devMed/notasUlbra.py)
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
-        - MCP
+        - MCP;
+        - Perceptron;
         - [Adaline](./Inteligência%20Artificial/Redes%20Neurais%20Artificiais/Adaline);
 
 ## Observações
