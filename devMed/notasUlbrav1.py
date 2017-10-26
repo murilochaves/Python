@@ -1,4 +1,7 @@
+#coding: utf-8
+
 # Composicaoo de notas da minha faculdade - mudarei posteriormente para orientacao a objetos
+
 G1 = 5.0
 PPG1 = 2.0
 MensalG1 = 2.0
@@ -16,10 +19,10 @@ notaG2 = G2 + PPG2 + MensalG2 + SemiPresencialG2 + Transversal
 grauFinal = ((notaG1 + notaG2 * 2) / 3)
 
 if (grauFinal >= 6):
-    print('Media Final: %.1f - APROVADO' % grauFinal)
+    print('Média Final: %.1f - APROVADO' % grauFinal)
 elif (grauFinal >= 4) and (grauFinal <= 6):
-    print('Media Final: %.1f - SUBSTITUTIVA' % grauFinal)
+    print('Média Final: %.1f - SUBSTITUTIVA' % grauFinal)
 else:
-    print('Media Final: %.1f - Reprovado' % grauFinal)
+    print('Média Final: %.1f - Reprovado' % grauFinal)
 
 # FAZER SUB1 e SUB2 -> SUB 1 + SUB 2*2/3

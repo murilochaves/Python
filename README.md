@@ -14,7 +14,10 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
 ## Códigos
 - **[devMed](./devMed)**
     - [Olá Mundo](./devMed/olaMundo.py)
-    - [Notas Ulbra v.1](./devMed/notasUlbra.py)
+    - [Qual o nome do filme? (piadinha)](./devMed/nomeFilme.py)
+    - [Operadores Aritméticos](./devMed/operadoresAritmeticos.py)
+    - [Strings](./devMed/string.py)
+    - [Notas Ulbra v.1](./devMed/notasUlbrav1.py)
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
         - Neurônio de McCulloch-Pitts;
