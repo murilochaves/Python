@@ -14,10 +14,11 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
 ## Códigos
 - **[devMed](./devMed)**
     - [Olá Mundo](./devMed/olaMundo.py)
+    - [Notas Ulbra v.1](./devMed/notasUlbrav1.py)
     - [Qual o nome do filme? (piadinha)](./devMed/nomeFilme.py)
     - [Operadores Aritméticos](./devMed/operadoresAritmeticos.py)
     - [Strings](./devMed/string.py)
-    - [Notas Ulbra v.1](./devMed/notasUlbrav1.py)
+    - [Operadores Lógicos](./devMed/operadoresLogicos.py)
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
         - Neurônio de McCulloch-Pitts;
@@ -31,3 +32,5 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
 - **Versão**: [Python](https://www.python.org) v.2.7.10
 - **IDE**: [Microsoft Visual Studio Code](https://code.visualstudio.com) v.1.17.2
 - **Execução**: [Terminal](https://support.apple.com/pt-br/guide/terminal/welcome) - macOS Sierra v.10.12.6
+
+- Arquivo: .vscode adicionado somente para parar de aparecer: **Error** Linter pylint is not installed. (Não quero instalar pylint)
