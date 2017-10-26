@@ -23,3 +23,12 @@ print(0 and 1)
 
 # Operador OU - or
 print(0 or 1)
+
+# Contido
+print(5 in [1, 2, 3])
+
+# Não Contém
+print(5 not in [1, 2, 3])
+
+# Relação
+print(5 is 5)

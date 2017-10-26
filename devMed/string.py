@@ -27,3 +27,8 @@ print('Exponencial: %e' % exponencial)
 # Porcentagem
 porcentagem = 50
 print('Porcentagem: %d%%' % porcentagem)
+
+# Contar a quantidade de caracteres
+nome = 'Murilo Chaves'
+tamanho = len(nome)
+print('%d caracteres' % tamanho)
