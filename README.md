@@ -4,7 +4,7 @@ Criado por **Murilo Chaves Jayme**
 Repositório de alguns códigos amadores que farei em Python, afim de promover um melhor estudo e organização.
 
 - **Motivação**:
-    - Alto nível de abstração: sintaxe similar à linguagem natural, fácil leitura;
+    - Legibilidade e alto nível de abstração: sintaxe similar à linguagem natural, fácil leitura;
     - Multiplataforma: código fonte interpretado;
     - Multiparadigma: programação imperativa, funcional e orientada a objetos;
     - Tipagem dinâmica: as variáveis se ajustam aos valores recebidos;
