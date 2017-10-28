@@ -19,8 +19,8 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - [Operadores Aritméticos](./devMed/operadoresAritmeticos.py)
     - [Strings](./devMed/string.py)
     - [Operadores Lógicos](./devMed/operadoresLogicos.py)
-    - [Manipular Arquivo](./devMed/Manipular%Arquivo)
-    
+    - [Manipular Arquivo](./devMed/Manipular%20Arquivo)
+
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
         - Neurônio de McCulloch-Pitts;
