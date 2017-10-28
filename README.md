@@ -20,6 +20,11 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - [Strings](./devMed/string.py)
     - [Operadores Lógicos](./devMed/operadoresLogicos.py)
     - [Manipular Arquivo](./devMed/Manipular%20Arquivo)
+        - [Gravar e/ou criar arquivo](./devMed/Manipular%20Arquivo/gravarECriar.py)
+        - [Ler arquivo](./devMed/Manipular%20Arquivo/ler.py)
+        - [Adicionar informações em arquivo](./devMed/Manipular%20Arquivo/adicionar.py)
+            - [Adicionar várias informações em arquivo](./devMed/Manipular%20Arquivo/adicionarVarios.py)
+        - [TXT de exemplo](./devMed/Manipular%20Arquivo/teste.txt)
 
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
