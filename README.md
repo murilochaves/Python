@@ -20,6 +20,7 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
     - [Strings](./devMed/string.py)
     - [Operadores Lógicos](./devMed/operadoresLogicos.py)
     - [Manipular Arquivo](./devMed/Manipular%Arquivo)
+    
 - **Inteligência Artificial**
     - Redes Neurais Artificiais
         - Neurônio de McCulloch-Pitts;
