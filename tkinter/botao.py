@@ -10,7 +10,7 @@ def bt_click():
 janela = tk.Tk()
 
 bt = tk.Button(janela, width=15, text='Ok', command=bt_click)
-bt.place(x=100, y=100)
+bt.place(x=50, y=100)
 
 lb = tk.Label(janela, text='Teste')
 lb.place(x=100, y=150)
