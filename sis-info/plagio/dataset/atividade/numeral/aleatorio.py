@@ -1,33 +1,10 @@
-from random import *
+import random as rd
 
-def gerarValores(inicial, final, txt):
-    for i in range(inicial, final):
-        adicionarValores(txt, i)
+numero = rd.randint(0, 99)
 
-def geraValoresAleatorios(qtd):
-    for i in range(0, qtd):
-        numero = random()
-        print numero
+arquivo = open('file4.txt', 'w')
 
-def lerArquivo(txt):
-    arquivo = open(txt, 'r')
-    for linha in arquivo:
-        print linha
-    arquivo.close
+for i in range (0, 10):
+    arquivo.
 
-def gravarArquivo(txt, valor):
-    arquivo = open('' + txt, 'w')
-    arquivo.write ('' + valor)
-    arquivo.close
-
-def adicionarValores(txt, valor):
-    arquivo = open('' + txt, 'r')
-    conteudo = arquivo.readlines()
-    conteudo.append(' ')
-    arquivo = open('' + txt, 'w')
-    arquivo.writelines(conteudo)
-    valor = str(valor)
-    arquivo.write('' + valor)
-    arquivo.close
-
-gerarValores(0, 10, 'file1.txt')
+print(teste)
