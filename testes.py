@@ -6,11 +6,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 driver = webdriver.Safari()
 
 # NetAula
-CGU = 'xxx'
+cgu = 'xxx'
 password = 'xxx'
 driver.get('https://servicos.ulbra.br/pls/ulbra24/AAMAIN.Login')
 
-driver.find_element_by_id('i_Login').send_keys(CGU)
+driver.find_element_by_id('i_Login').send_keys(cgu)
 driver.find_element_by_name('i_Senha').send_keys(password)
 
 driver.find_element_by_xpath('//a[contains(text(), "Conectar")]').click()
