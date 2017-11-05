@@ -20,4 +20,4 @@ with open('/Users/muriloch/Documents/Git/GitHub/Python/sis-info/plagio/dataset/a
     # transformando em porcentagem
     plagio = plagio * 100
     # mostrando a porcentagem do plágio
-    print 'Plágio: %.2f %%' % plagio
+    print ('Plágio: %.2f %%' % plagio)
