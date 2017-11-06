@@ -1,8 +1,12 @@
-teste = [[0, 0], [0, 1], [1, 0], [1, 1]]
+tabelaAnd = [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 1]]
 
-for i in range(len(teste)):
-    a = int(teste[i[0]])
-    print(teste[i][0])
-    print(teste[i][1])
-    #x = 
-    #print(teste[i], '\t',  i)
+entrada = tabelaAnd
+
+print('x1', '\t x2', '\t t', '\t y')
+
+for i in range(len(entrada)):
+    x1 = entrada[i][0]
+    x2 = entrada[i][1]
+    #t = entrada[i][2]
+    t = x1 and x2
+    print(x1, '\t', x2, '\t', t, '\t')
