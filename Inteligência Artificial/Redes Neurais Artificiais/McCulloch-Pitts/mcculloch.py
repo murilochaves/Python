@@ -10,17 +10,14 @@ class McCullochsPitts:
     def set_limiar(self, limiar):
         self.limiar = limiar
 
-# ARRUMAR SOMATORIO - NAO ESTA FUNCIONANDO CORRETAMENTE
     def soma(self, x):
-        y = 0.0
+        y = 0
         for i in range(len(x)):
+            print(x[i], y)
             for j in range(len(x[0])):
-                #print(j)
                 x_neuronio = x[i][j]
                 w_axonio = self.w[j][0]
                 y += x_neuronio * w_axonio
-                #print(x_neuronio, w_axonio, y)
-                #y += x[i][j] * self.w[i]
         return y
 
     def ativacao(self, x):
