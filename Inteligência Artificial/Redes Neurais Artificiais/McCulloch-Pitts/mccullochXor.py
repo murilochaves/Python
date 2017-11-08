@@ -51,4 +51,7 @@ n_conexoes = len(x[0])
 
 z = []
 
+for i in range(2):
+    
+
 print('\n')
