@@ -11,13 +11,13 @@ n_conexoes = get_conexao(x)
 
 camada = Camada(2, McCullochPitts(n_conexoes))
 
-print(camada.camada_escondida)
+print(camada.camada)
 
 # primeiro neurônio
-z1 = camada.camada_escondida[0]
+z1 = camada.camada[0]
 
 # segundo neurônio
-z2 = camada.camada_escondida[1]
+z2 = camada.camada[1]
 
 z1.set_limiar(2)
 z1.set_w(2, 0)
@@ -31,11 +31,11 @@ z2.set_w(2, 1)
 
 camada_saida = []
 
-for i in range(len(camada.camada_escondida)):
-    valor_saida = camada.camada_escondida[i].somatorio(x, t)
+for i in range(len(camada.camada)):
+    valor_saida = camada.camada[i].somatorio(x, t)
     camada_saida.append(valor_saida)
 
-print 
+print(camada_saida)
 
 #teste = []
 

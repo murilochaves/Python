@@ -84,16 +84,16 @@ def separar_saida(entrada):
 ## TESTE ##
 ###########
 
-#entrada = [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 1]]
+entrada = [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 1]]
 
-#x = separar_entrada(entrada)
-#t = separar_saida(entrada)
+x = separar_entrada(entrada)
+t = separar_saida(entrada)
 
-#n_conexoes = get_conexao(x)
+n_conexoes = get_conexao(x)
 
-#neuronio1 = McCullochPitts(n_conexoes)
-#neuronio1.set_w(2, 0)
-#neuronio1.set_w(1, 1)
-#neuronio1.set_limiar(3)
+neuronio1 = McCullochPitts(n_conexoes)
+neuronio1.set_w(2, 0)
+neuronio1.set_w(1, 1)
+neuronio1.set_limiar(3)
 
-#neuronio1.soma(x)
+neuronio1.soma(x, t)
