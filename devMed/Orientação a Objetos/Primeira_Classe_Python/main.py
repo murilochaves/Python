@@ -2,7 +2,7 @@
 from pessoa_fisica import PessoaFisica
 from pessoa_juridica import PessoaJuridica
 
-a = PessoaFisica('111.222.333-44', 'Alfredo', 22)
+a = PessoaFisica('012.345.678-90', 'Alfredo', 22)
 
 print('\n### Primeiro Objeto ###')
 print('Nome: ', a.getNome(), ',', a.getIdade(), 'anos, CPF:', a.getCPF())
