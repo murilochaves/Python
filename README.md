@@ -35,6 +35,12 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
         - Kohonen;
         - Backpropagation;
 
+## Configurar usuário do visual studio code para dar os commits como usuário
+```
+git config user.name "NomeDeUsuario"
+git config user.email "email@provedor.com.br"
+```
+
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
 - **IDE**: [Microsoft Visual Studio Code](https://code.visualstudio.com) v.1.17.2
