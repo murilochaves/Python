@@ -37,8 +37,21 @@ Repositório de alguns códigos amadores que farei em Python, afim de promover u
 
 ## Configurar usuário do visual studio code para dar os commits como usuário
 ```
-git config user.name "NomeDeUsuario"
-git config user.email "email@provedor.com.br"
+$ git config user.name "NomeDeUsuario"
+$ git config user.email "email@provedor.com.br"
+```
+
+## Criar ambiente virtual de desenvolvimento isolado (virtualenv)
+```
+# criando pasta para atribuir projetos
+$ mkdir nomeProjeto
+$ cd nomeProjeto
+
+# criando virtualenv
+$ python3 -m venv nomeVirtualenv
+
+# ativando virtualenv
+$ source myvenv/bin/activate
 ```
 
 ## Observações
@@ -47,3 +60,7 @@ git config user.email "email@provedor.com.br"
 - **Execução**: [Terminal](https://support.apple.com/pt-br/guide/terminal/welcome) - macOS Sierra v.10.12.6
 
 - Arquivo: .vscode adicionado somente para parar de aparecer: **Error** Linter pylint is not installed. (Não quero instalar pylint)
+
+### Links legais:
+
+- [Tutorial Django](https://tutorial.djangogirls.org/pt/django_installation/)
