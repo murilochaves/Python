@@ -26,6 +26,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.graphics.shapes import Drawing
 
+# Para controlar as impressões da etiqueta
 class Entidade:
 
     """
@@ -79,6 +80,7 @@ class Entidade:
     def getQtd(self):
         return self.qtd
 
+# Para Reduzir um pouco de código dos elif
 def switchCase_desc(desc):
 
     if (len(desc) > 25):
@@ -116,6 +118,7 @@ def switchCase_desc(desc):
         '25': 14,
     } [tamanhoString]
 
+# Para Reduzir um pouco de código dos elif
 def switchCase_barCode(barCode):
 
     tamanhoBarCode = str(len(barCode))
@@ -138,6 +141,7 @@ def switchCase_barCode(barCode):
         '14' : 11,
     } [tamanhoBarCode]
 
+# Para Reduzir um pouco de código dos elif
 def switchCase_code(cod):
 
     tamanhoCod = str(len(cod))
@@ -155,6 +159,7 @@ def switchCase_code(cod):
         '10' : 40,
     } [tamanhoCod]
 
+# Para Reduzir um pouco de código dos elif
 def switchCase_preco(preco):
 
     tamanhoPreco = str(len(preco))
@@ -168,7 +173,7 @@ def switchCase_preco(preco):
         '9' : 38,
     } [tamanhoPreco]
 
-
+# Função específica para criar as etiquetas.
 def executar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
     
     # 1º Passo - Constituir o PDF
@@ -221,10 +226,10 @@ def executar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
     ajuste_coluna = 0
     ajuste_linha = 0
 
-    def plotarEtiquetas(ajuste_linha, ajuste_coluna):
+    def plotarEtiquetas(ajuste_linha, ajuste_coluna, object):
 
         # Descrição/Nome do produto
-        desc = lista_produtos[0].getDesc()
+        desc = object.getDesc()
         # Limitando o tamanho da string para 25
         if (len(desc) > 25): 
             desc = desc[:25]
@@ -234,7 +239,7 @@ def executar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
         PDF.drawString(x = x + ajuste_desc + ajuste_coluna, y = y - ajuste_linha, text=desc)
 
         # BarCode
-        barCode = lista_produtos[0].getBarcode()
+        barCode = object.getBarcode()
         # Verificando se o código tem até 14 caracteres
         if (len(str(barCode)) > 14):
             print('Tamanho excede 14 dígitos, perdendo centralização')
@@ -244,7 +249,7 @@ def executar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
         barCode.drawOn(PDF, x + ajuste_barCode + ajuste_coluna, y = y - 23 - ajuste_linha)
 
         # Cod
-        cod = str(lista_produtos[0].getCod())
+        cod = str(object.getCod())
         #Verificando o tamanho do código
         if (len(cod) > 10):
             print('Código excede 10 dígitos')
@@ -253,12 +258,90 @@ def executar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
         PDF.drawString(x = x + ajuste_code + ajuste_coluna, y = y - 29 - ajuste_linha, text=cod)
 
         # Preço
-        preco = str(lista_produtos[0].getValor()[:-1])
+        preco = str(object.getValor()[:-1])
         ajuste_preco = switchCase_preco(preco)
         # Plotando o preço do produto
         PDF.drawString(x = x + ajuste_preco + ajuste_coluna, y = y - 20 - 18 - ajuste_linha, text= 'R$ ' + preco)
     
-    plotarEtiquetas(ajuste_coluna, ajuste_linha)
+    if (qtd_linhas > 13):
+        paginasDocumento = qtd_linhas / 13
+
+        if (paginasDocumento != int):
+            paginasDocumento = (int(paginasDocumento) + 1)
+    elif (qtd_linhas <= 13):
+        paginasDocumento = 1
+
+    if (imprimir == True):
+        print('\n### Imprimindo valores pertinentes para configuração ###\n')
+        print('Cód.:', cod)
+        print('Desc. do Produto:', nome_Produto)
+        print('Cód. Interno:', cod_interno)
+        print('Preço:', preco)
+        
+        print('')
+        
+        print('Qtd. de etiquetas:', qtd_etiquetas)
+        print('Qtd. linhas da etiqueta:', qtd_linhas)
+        print('Qtd. colunas:', qtd_colunas)
+        print('Valor da coluna final:', coluna_final)
+        print('Qtd. Páginas:', paginasDocumento)
+
+    # O PROBLEMA ESTA AQUI EM NÃO CONSEGUIR RODAR
+    def rodar(qtd_colunas, ajuste_linha, ajuste_coluna):
+
+        aux = 0
+        etiquetasGeradas = 0
+        auxiliar_etiqueta = 0
+        objeto = 0
+
+        for i in range(qtd_linhas):
+            aux = aux + 1
+            if (aux >= 14):
+                PDF.showPage()
+                PDF.setFont("Helvetica", 6)
+
+                ajuste_linha = 0
+                ajuste_coluna = 0
+
+                aux = 1
+
+            if (i + 1 != qtd_linhas):
+                if(qtd_colunas > 5):
+                    qtd_colunas = 5
+            elif (i + 1 == qtd_linhas):
+                qtd_colunas = coluna_final
+
+            for j in range(qtd_colunas):
+                
+                auxiliar_etiqueta = auxiliar_etiqueta + 1
+
+                print(etiquetasGeradas)
+
+                print('\tObj', objeto)
+                if (etiquetasGeradas == lista_produtos[objeto].getQtd()):
+                    print(etiquetasGeradas, '     ', lista_produtos[objeto].getQtd())
+                    objeto = objeto + 1
+
+                    etiquetasGeradas = 0
+                    
+                    
+                    print('objeto',objeto)
+
+                etiquetasGeradas = etiquetasGeradas + 1
+
+                plotarEtiquetas(ajuste_linha, ajuste_coluna, lista_produtos[objeto])
+
+                ajuste_coluna += 120
+
+            ajuste_coluna = 0
+
+            ajuste_linha += 63
+
+
+    ajuste_coluna = 0
+    ajuste_linha = 0
+
+    rodar(qtd_colunas, ajuste_linha, ajuste_coluna)
 
     # 4º Passo - Salvar PDF
     PDF.save()
