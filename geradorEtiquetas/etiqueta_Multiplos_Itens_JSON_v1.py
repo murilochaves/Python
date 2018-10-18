@@ -14,12 +14,17 @@ Pillow==5.3.0
 reportlab==3.5.9
 
 Autor: JAYME, M. C.
-Última modificação: 17 de outubro de 2018
+Última modificação: 18 de outubro de 2018
 """
 
 import sys
 import json
 import os
+
+from reportlab.graphics.barcode import code128
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import mm
+from reportlab.graphics.shapes import Drawing
 
 class Entidade:
 
@@ -74,7 +79,21 @@ class Entidade:
     def getQtd(self):
         return self.qtd
 
+def rodar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
+    # 1º Passo - Constituir o PDF
+    diretorio = os.path.dirname(os.path.realpath(__file__))
+    PDF = canvas.Canvas("%s/etiquetasJSON.pdf" % diretorio)
+    PDF.setFont("Helvetica", 6)
+
+    # 2º Passo - Popular o PDF
+    PDF.drawString(x = 200, y = 100, text="Ola mundo!")
+
+    # 3º Passo - Salvar PDF
+    PDF.save()
+
 def main():
+
+    # PARTE DA LEITURA DO JSON
     # Coletando conteúdo JSON passado como argumento no terminal
     # python3 nome_arq.py 
     contJSON = sys.argv
@@ -113,6 +132,9 @@ def main():
     # Pegando o total de etiquetas à serem geradas
     qtd_Total_etiquetas = carrJSON["total"]
     print('\n### Qtd. totais de etiquetas: ', qtd_Total_etiquetas)
+
+    rodar(lista_produtos, qtd_Total_etiquetas)
+
 
 if __name__ == '__main__':
     main()
