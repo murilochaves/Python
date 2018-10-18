@@ -79,17 +79,190 @@ class Entidade:
     def getQtd(self):
         return self.qtd
 
-def rodar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
+def switchCase_desc(desc):
+
+    if (len(desc) > 25):
+        desc = desc[:25]
+
+    desc = desc[:25]
+    tamanhoString = str(len(desc))
+
+    return {
+        '1' : 55,
+        '2' : 54,
+        '3' : 52,
+        '4' : 51,
+        '5' : 48,
+        '6' : 46,
+        '7' : 48,
+        '8' : 45,
+        '9' : 44,
+        '10' : 43,
+        '11' : 41,
+        '12' : 40,
+        '12' : 40,
+        '13' : 38,
+        '14' : 36,
+        '15' : 35,
+        '16' : 33,
+        '17' : 31,
+        '18' : 29,
+        '19' : 27,
+        '20' : 25,
+        '21' : 23,
+        '22' : 21,
+        '23' : 19,
+        '24' : 17,
+        '25': 14,
+    } [tamanhoString]
+
+def switchCase_barCode(barCode):
+
+    tamanhoBarCode = str(len(barCode))
+
+    return {
+        '1' : 27,
+        '2' : 27,
+        '3' : 22,
+        '4' : 25,
+        '5' : 19,
+        '6' : 22,
+        '7' : 16,
+        '8' : 19,
+        '9' : 13,
+        '10' : 16,
+        '11' : 10,
+        '12' : 13,
+        '12' : 13,
+        '13' : 7,
+        '14' : 11,
+    } [tamanhoBarCode]
+
+def switchCase_code(cod):
+
+    tamanhoCod = str(len(cod))
+
+    return {
+        '1' : 55,
+        '2' : 54,
+        '3' : 52,
+        '4' : 51,
+        '5' : 49,
+        '6' : 47,
+        '7' : 46,
+        '8' : 44,
+        '9' : 42,
+        '10' : 40,
+    } [tamanhoCod]
+
+def switchCase_preco(preco):
+
+    tamanhoPreco = str(len(preco))
+
+    return {
+        '4' : 47,
+        '5' : 45,
+        '6' : 43,
+        '7' : 41,
+        '8' : 40,
+        '9' : 38,
+    } [tamanhoPreco]
+
+
+def executar(lista_produtos, qtd_Total_etiquetas, imprimir = False):
+    
     # 1º Passo - Constituir o PDF
     diretorio = os.path.dirname(os.path.realpath(__file__))
     PDF = canvas.Canvas("%s/etiquetasJSON.pdf" % diretorio)
     PDF.setFont("Helvetica", 6)
 
-    # 2º Passo - Popular o PDF
-    PDF.drawString(x = 200, y = 100, text="Ola mundo!")
+    # 2º Passo - Inicializando a topologia para o PDF
+    x = 1 * mm
+    y = 285 * mm
 
-    # 3º Passo - Salvar PDF
+    if (qtd_Total_etiquetas <= 5):
+        qtd_linhas = 1
+        qtd_colunas = qtd_Total_etiquetas
+        coluna_final = qtd_Total_etiquetas
+    elif (qtd_Total_etiquetas > 5):
+        qtd_linhas = (int(qtd_Total_etiquetas / 5))
+        if ((qtd_Total_etiquetas % 5) != 0):
+            qtd_linhas = qtd_linhas + 1
+        qtd_colunas = 5
+        coluna_final = qtd_Total_etiquetas % 5
+    
+    if (coluna_final == 0):
+        coluna_final = 5
+
+    if (qtd_linhas > 13):
+        paginasDocumento = qtd_linhas / 13
+        if (paginasDocumento != int):
+            paginasDocumento = (int(paginasDocumento) + 1)
+    elif(qtd_linhas <= 13):
+        paginasDocumento = 1
+
+    if (imprimir == True):
+        print('\n### Imprimindo valores pertinentes para configuração ###\n')
+        print('Cód.:', cod)
+        print('Desc. do Produto:', nome_Produto)
+        print('Cód. Interno:', cod_interno)
+        print('Preço:', preco)
+        
+        print('')
+        
+        print('Qtd. de etiquetas:', qtd_etiquetas)
+        print('Qtd. linhas da etiqueta:', qtd_linhas)
+        print('Qtd. colunas:', qtd_colunas)
+        print('Valor da coluna final:', coluna_final)
+        print('Qtd. Páginas:', paginasDocumento)
+
+        print('')
+
+    ajuste_coluna = 0
+    ajuste_linha = 0
+
+    def plotarEtiquetas(ajuste_linha, ajuste_coluna):
+
+        # Descrição/Nome do produto
+        desc = lista_produtos[0].getDesc()
+        # Limitando o tamanho da string para 25
+        if (len(desc) > 25): 
+            desc = desc[:25]
+        # Definindo o valor referente à topologia da plotagem
+        ajuste_desc = switchCase_desc(desc)
+        # Plotando o nome do produto
+        PDF.drawString(x = x + ajuste_desc + ajuste_coluna, y = y - ajuste_linha, text=desc)
+
+        # BarCode
+        barCode = lista_produtos[0].getBarcode()
+        # Verificando se o código tem até 14 caracteres
+        if (len(str(barCode)) > 14):
+            print('Tamanho excede 14 dígitos, perdendo centralização')
+        ajuste_barCode = switchCase_barCode(str(barCode))
+        # Plotando o código de barras
+        barCode = code128.Code128(barCode)
+        barCode.drawOn(PDF, x + ajuste_barCode + ajuste_coluna, y = y - 23 - ajuste_linha)
+
+        # Cod
+        cod = str(lista_produtos[0].getCod())
+        #Verificando o tamanho do código
+        if (len(cod) > 10):
+            print('Código excede 10 dígitos')
+        ajuste_code = switchCase_code(cod)
+        # Plotando o Código numeral
+        PDF.drawString(x = x + ajuste_code + ajuste_coluna, y = y - 29 - ajuste_linha, text=cod)
+
+        # Preço
+        preco = str(lista_produtos[0].getValor()[:-1])
+        ajuste_preco = switchCase_preco(preco)
+        # Plotando o preço do produto
+        PDF.drawString(x = x + ajuste_preco + ajuste_coluna, y = y - 20 - 18 - ajuste_linha, text= 'R$ ' + preco)
+    
+    plotarEtiquetas(ajuste_coluna, ajuste_linha)
+
+    # 4º Passo - Salvar PDF
     PDF.save()
+
 
 def main():
 
@@ -133,7 +306,7 @@ def main():
     qtd_Total_etiquetas = carrJSON["total"]
     print('\n### Qtd. totais de etiquetas: ', qtd_Total_etiquetas)
 
-    rodar(lista_produtos, qtd_Total_etiquetas)
+    executar(lista_produtos, qtd_Total_etiquetas)
 
 
 if __name__ == '__main__':
