@@ -54,6 +54,11 @@ $ python3 -m venv nomeVirtualenv
 $ source myvenv/bin/activate
 ```
 
+## Criar uma alias para utilizar ll no terminal (OS X)
+```
+$ alias ll='ls -lG'
+```
+
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
 - **IDE**: [Microsoft Visual Studio Code](https://code.visualstudio.com) v.1.17.2
