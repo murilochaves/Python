@@ -4,7 +4,6 @@
 from PIL import Image
 
 #DIDÁTICA
-
 # abrir imagem colorida
 img_colorida = Image.open('alan-turing-painting.jpg')
 
