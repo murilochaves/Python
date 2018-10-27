@@ -4,4 +4,4 @@ Este repositório possui como objetivo armazenar alguns códigos escritos em Pyt
 
 ## Arquivos
 
-- [Transformar img colorida em escala cinza](./transformar_escala_cinza.py)
+- [Transformar img colorida em escala cinza](./codigos/transformar_escala_cinza.py)

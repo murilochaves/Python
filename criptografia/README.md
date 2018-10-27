@@ -7,3 +7,5 @@ Assim que tiver tempo, fazer um resumo explicativo das cifras em ordem cronológ
 ## Cifra de César
 
 ## Cifra de Vigenère
+
+## Requirements
