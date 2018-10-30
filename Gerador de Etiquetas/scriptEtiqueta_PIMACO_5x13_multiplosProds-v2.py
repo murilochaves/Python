@@ -19,6 +19,7 @@ Autor: JAYME, M. C.
 
 import sys
 import json
+import os, os.path
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, A4
@@ -167,8 +168,14 @@ def switchCase_preco(preco):
         '9' : 38,
     } [tamanhoPreco]
 
-def constituir(arquivo = "etiqueta.pdf", pagesize = A4, margemX = 0, tamHorizontal = 0, margemY = 0, tamanhoVertical = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, imprimirGrade = False):
-    PDF = canvas.Canvas("%s" % arquivo, pagesize)
+def constituir(arquivo = "etiqueta.pdf", pagesize = A4, idCliente = 0, margemX = 0, tamHorizontal = 0, margemY = 0, tamanhoVertical = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, imprimirGrade = False):
+    diretorio = os.path.dirname(os.path.realpath(__file__))
+
+    if not os.path.exists("../storage/midia/%s/" % idCliente):
+        os.makedirs("../storage/midia/%s" % idCliente)
+
+    PDF = canvas.Canvas("../storage/midia/%s/etiquetas.pdf" % idCliente, pagesize)
+
     PDF.setFont("Helvetica", 6)
     
     if (imprimirGrade != False):
@@ -176,9 +183,50 @@ def constituir(arquivo = "etiqueta.pdf", pagesize = A4, margemX = 0, tamHorizont
     
     return PDF
 
-def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, larguraEtiqueta = 0, alturaEtiqueta = 0):
+def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, qtdTotalEtiquetas = 0):
 
     print('\n### Iniciando Processo de Plotagem ###\n')
+
+    print('\t* Qtd. total de Etiquetas: ', qtdTotalEtiquetas)
+
+    if (qtdTotalEtiquetas <= 5):
+        qtd_linhas = 1
+        qtd_colunas = qtdTotalEtiquetas
+        coluna_final = qtdTotalEtiquetas
+    elif (qtdTotalEtiquetas > 5):
+        qtd_linhas = (int(qtdTotalEtiquetas / 5))
+        if ((qtdTotalEtiquetas % 5) != 0):
+            qtd_linhas = qtd_linhas + 1
+        qtd_colunas = 5
+        coluna_final = qtdTotalEtiquetas % 5
+
+    if (coluna_final == 0):
+        coluna_final = 5
+
+    if (qtd_linhas > 13):
+        paginasDocumento = qtd_linhas / 13
+        if (paginasDocumento != int):
+            paginasDocumento = (int(paginasDocumento) + 1)
+    elif(qtd_linhas <= 13):
+        paginasDocumento = 1
+
+    print('\t* Qtd. Linhas: ', qtd_linhas)
+    print('\t* Qtd. Colunas: ', qtd_colunas)
+    print('\t* Qtd. da Coluna Final: ', coluna_final)
+    print('\t* Qtd. de páginas: ', paginasDocumento)
+
+    def plotarEtiquetas(object):
+        # Descrição do Produto
+        desc = object.getDesc()
+        # Limitando o tamanho da string para 25
+        if (len(desc) > 25): 
+            desc = desc[:25]
+        # Definindo o valor referente à topologia da plotagem
+        ajuste_desc = switchCase_desc(desc)
+        
+        # Plotando o nome do produto
+        PDF.drawString(x = x + ajuste_desc + ajuste_coluna, y = y - ajuste_linha - 14, text=desc)
+
 
     desc = '888888888 ALCON CLUB ALIM'
     if (len(desc) > 25): 
@@ -199,14 +247,14 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
     preco = '1.99'
     ajuste_preco = switchCase_preco(preco)
 
-    for linha in range(10):
-        print('Linha:', linha)
+    for linha in range(13):
+        print('Linha:', linha + 1)
         for coluna in range(5):
-            print('\tColuna:', coluna)
+            print('\tColuna:', coluna + 1)
             PDF.drawString(
                 x = margemXInicial + ajuste_desc + ((larguraEtiqueta + 0.2 * cm) * coluna), 
                 y = tamanhoVertical - margemYInicial - (0.5 * cm) - (alturaEtiqueta * linha), 
-                text=desc
+                text = desc
                 )
             barcode.drawOn(
                 PDF, 
@@ -216,12 +264,12 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
             PDF.drawString(
                 x = margemXInicial + ajuste_cod + ((larguraEtiqueta + 0.2 * cm) * coluna), 
                 y = tamanhoVertical - margemYInicial - (1.55 * cm) - (alturaEtiqueta * linha), 
-                text=cod
+                text = cod
                 )
             PDF.drawString(
                 x = margemXInicial + ajuste_preco + ((larguraEtiqueta + 0.2 * cm) * coluna), 
                 y = tamanhoVertical - margemYInicial - (1.9 * cm) - (alturaEtiqueta * linha), 
-                text='R$ ' + preco
+                text = 'R$ ' + preco
                 )
 
     PDF.showPage()
@@ -302,6 +350,7 @@ def main(args):
     PDF = constituir(
         arquivo = 'etiqueta.pdf', 
         pagesize = (tamanhoX, tamanhoY), 
+        idCliente = cliente,
         margemX = margemLateral, 
         tamHorizontal = tamanhoX, 
         margemY = margemSuperior, 
@@ -318,7 +367,8 @@ def main(args):
         tamanhoVertical = tamanhoY,
         margemYInicial = margemSuperior,
         larguraEtiqueta = larguraUtilEtiqueta,
-        alturaEtiqueta = alturaUtilEtiqueta
+        alturaEtiqueta = alturaUtilEtiqueta,
+        qtdTotalEtiquetas = qtd_Total_etiquetas
         )
 
 if __name__ == '__main__':
