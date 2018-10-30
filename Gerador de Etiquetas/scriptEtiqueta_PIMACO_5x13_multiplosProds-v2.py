@@ -171,10 +171,10 @@ def switchCase_preco(preco):
 def constituir(arquivo = "etiqueta.pdf", pagesize = A4, idCliente = 0, margemX = 0, tamHorizontal = 0, margemY = 0, tamanhoVertical = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, imprimirGrade = False):
     diretorio = os.path.dirname(os.path.realpath(__file__))
 
-    if not os.path.exists("../storage/midia/%s/" % idCliente):
-        os.makedirs("../storage/midia/%s" % idCliente)
+    if not os.path.exists("%s/var/www/storage/midia/%s/" % (diretorio, idCliente)):
+        os.makedirs("%s/var/www/storage/midia/%s" % (diretorio, idCliente))
 
-    PDF = canvas.Canvas("../storage/midia/%s/etiquetas.pdf" % idCliente, pagesize)
+    PDF = canvas.Canvas("%s/var/www/storage/midia/%s/etiquetas.pdf" % (diretorio, idCliente), pagesize)
 
     PDF.setFont("Helvetica", 6)
     
@@ -309,7 +309,7 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
     PDF.showPage()
     PDF.save()
 
-def main(args):
+def main():
 
     '''
     Esta função tem como objetivo executar todo o escopo do algoritmo.
@@ -317,16 +317,20 @@ def main(args):
     É passado os argumentos do console para ter seu conteúdo separado para ser utilizado no decorrer do fluxo.
     '''
 
+    print('Versão 30/out/2018 16h37 v2')
+
     # imprimindo processo no console
     print('\n### Iniciando Processo das Etiquetas ###\n')
 
+    contJSON = sys.argv
+
     # setando uma variável com todo o conteúdo do JSON
-    carrJSON = json.loads(args[1])
+    carrJSON = json.loads(contJSON[1])
     # imprimindo processo no console
     print('\t* JSON:', carrJSON)
     
     # setando uma variável com o id do cliente por meio do arg
-    cliente = json.loads(args[2])
+    cliente = json.loads(contJSON[2])
     # imprimindo processo no console
     print('\t* Cliente:', cliente)
 
@@ -420,6 +424,6 @@ if __name__ == '__main__':
     '''
 
     # chamando o programa principal, passando os args 
-    main(sys.argv)
+    main()
 
     # python3 "/Users/murilochaves/Documents/UpGestão/Web/up/app/components/etiqueta_2_M_C/Nova Etiqueta SISO/scriptEtiqueta_PIMACO_5x13_multiplosProds-POSSISO.py" '{ "prod":[ { "pro_desc":"TESTE", "cod_bar":1878, "pro_un":"KG", "pro_vlr":"110.000", "qtd":17 }, { "pro_desc":"adoro SNACKS CAES MINI/FILHOTE 80G", "cod_bar":3013, "pro_un":"UN", "pro_vlr":"3.970", "qtd":32 }, { "pro_desc":"GATOS BOLAS DE PELOS 80G","cod_bar":3012, "pro_un":"UN", "pro_vlr":"6.250", "qtd":21 }, { "pro_desc":"ALCON BOTTON FISH 50G", "cod_bar":1894, "pro_un":"PT", "pro_vlr":"6.690", "qtd":22 }, { "pro_desc":"BANHEIRO CAT TOILETTE 56X40X38CM - 96301", "cod_bar":3790, "pro_un":"UN", "pro_vlr":"104.000", "qtd":7 } ], "config":{ "pageWidith":29.7, "pageHeight":21, "marginLeft":0.7, "marginRight":0.3, "barCodeBase":"pro_cod_pro", "cols":3, "fontSize":7 }, "total":99 }' '1236'
