@@ -183,7 +183,7 @@ def constituir(arquivo = "etiqueta.pdf", pagesize = A4, idCliente = 0, margemX =
     
     return PDF
 
-def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, qtdTotalEtiquetas = 0):
+def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, qtdTotalEtiquetas = 0, lista = 0):
 
     print('\n### Iniciando Processo de Plotagem ###\n')
 
@@ -215,7 +215,7 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
     print('\t* Qtd. da Coluna Final: ', coluna_final)
     print('\t* Qtd. de páginas: ', paginasDocumento)
 
-    def plotarEtiquetas(object):
+    def plotarEtiquetas(object, coluna, linha):
         # Descrição do Produto
         desc = object.getDesc()
         # Limitando o tamanho da string para 25
@@ -223,54 +223,88 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
             desc = desc[:25]
         # Definindo o valor referente à topologia da plotagem
         ajuste_desc = switchCase_desc(desc)
-        
         # Plotando o nome do produto
-        PDF.drawString(x = x + ajuste_desc + ajuste_coluna, y = y - ajuste_linha - 14, text=desc)
+        PDF.drawString(
+            x = margemXInicial + ajuste_desc + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+            y = tamanhoVertical - margemYInicial - (0.5 * cm) - (alturaEtiqueta * linha), 
+            text = desc
+            )
+        
+        # BarCode
+        barCode = object.getBarcode()
+        # Verificando se o código tem até 14 caracteres
+        if (len(str(barCode)) > 14):
+            print('Tamanho excede 14 dígitos, perdendo centralização')
+        ajuste_barCode = switchCase_barCode(str(barCode))
+        # Plotando o código de barras
+        barCode = code128.Code128(barCode)
+        barCode.drawOn(
+            PDF, 
+            x = margemXInicial + ajuste_barCode + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+            y = tamanhoVertical - margemYInicial - (1.3 * cm) - (alturaEtiqueta * linha)
+            )
 
+        # Cod
+        cod = str(object.getCod())
+        #Verificando o tamanho do código
+        if (len(cod) > 10):
+            print('Código excede 10 dígitos')
+        ajuste_cod = switchCase_code(cod)
+        # Plotando o Código numeral
+        PDF.drawString(
+            x = margemXInicial + ajuste_cod + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+            y = tamanhoVertical - margemYInicial - (1.55 * cm) - (alturaEtiqueta * linha), 
+            text = cod
+            )
 
-    desc = '888888888 ALCON CLUB ALIM'
-    if (len(desc) > 25): 
-        desc = desc[:25]
-    ajuste_desc = switchCase_desc(desc)
+        # Preço
+        preco = str(object.getValor()[:-1])
+        ajuste_preco = switchCase_preco(preco)
+        # Plotando o preço do produto
 
-    code = 12345678965213
-    if (len(str(code)) > 14):
-        print('Tamanho excede 14 dígitos, perdendo centralização')
-    ajuste_barCode = switchCase_barCode(str(code))
-    barcode = code128.Code128(code)
+        PDF.drawString(
+            x = margemXInicial + ajuste_preco + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+            y = tamanhoVertical - margemYInicial - (1.9 * cm) - (alturaEtiqueta * linha), 
+            text = 'R$ ' + preco
+            )
+        
 
-    cod = '1'
-    if (len(cod) > 10):
-        print('Código excede 10 dígitos')
-    ajuste_cod = switchCase_code(cod)
+    def rodar(qtd_linhas, qtd_colunas, coluna_final, lista):
+        aux = 0
+        etiquetasGeradas = 0
+        auxiliar_etiqueta = 0
+        objeto = 0
 
-    preco = '1.99'
-    ajuste_preco = switchCase_preco(preco)
+        for linha in range(qtd_linhas):
+            aux = aux + 1
+            #print(linha)
 
-    for linha in range(13):
-        print('Linha:', linha + 1)
-        for coluna in range(5):
-            print('\tColuna:', coluna + 1)
-            PDF.drawString(
-                x = margemXInicial + ajuste_desc + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-                y = tamanhoVertical - margemYInicial - (0.5 * cm) - (alturaEtiqueta * linha), 
-                text = desc
-                )
-            barcode.drawOn(
-                PDF, 
-                x = margemXInicial + ajuste_barCode + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-                y = tamanhoVertical - margemYInicial - (1.3 * cm) - (alturaEtiqueta * linha)
-                )
-            PDF.drawString(
-                x = margemXInicial + ajuste_cod + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-                y = tamanhoVertical - margemYInicial - (1.55 * cm) - (alturaEtiqueta * linha), 
-                text = cod
-                )
-            PDF.drawString(
-                x = margemXInicial + ajuste_preco + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-                y = tamanhoVertical - margemYInicial - (1.9 * cm) - (alturaEtiqueta * linha), 
-                text = 'R$ ' + preco
-                )
+            if (aux >= 14):
+                PDF.showPage()
+                PDF.setFont("Helvetica", 6)
+                aux = 1
+
+            if (linha + 1 != qtd_linhas):
+                if(qtd_colunas > 5):
+                    qtd_colunas = 5
+            elif (linha + 1 == qtd_linhas):
+                qtd_colunas = coluna_final
+
+            for coluna in range(qtd_colunas):
+                auxiliar_etiqueta = auxiliar_etiqueta + 1
+
+                if (etiquetasGeradas == lista[objeto].getQtd()):
+                    objeto = objeto + 1
+
+                    etiquetasGeradas = 0
+                                    
+                etiquetasGeradas = etiquetasGeradas + 1
+
+                plotarEtiquetas(lista[objeto], coluna, aux - 1)
+
+        print('\n### Etiquetas Geradas com sucesso! ###')
+
+    rodar(qtd_linhas, qtd_colunas, coluna_final, lista)
 
     PDF.showPage()
     PDF.save()
@@ -357,7 +391,7 @@ def main(args):
         tamanhoVertical = tamanhoY,
         larguraEtiqueta = larguraUtilEtiqueta,
         alturaEtiqueta = alturaUtilEtiqueta,
-        imprimirGrade = True
+        imprimirGrade = False
         )
 
     # plotando todas as informações no documento
@@ -368,7 +402,8 @@ def main(args):
         margemYInicial = margemSuperior,
         larguraEtiqueta = larguraUtilEtiqueta,
         alturaEtiqueta = alturaUtilEtiqueta,
-        qtdTotalEtiquetas = qtd_Total_etiquetas
+        qtdTotalEtiquetas = qtd_Total_etiquetas,
+        lista = lista_produtos
         )
 
 if __name__ == '__main__':
@@ -386,3 +421,5 @@ if __name__ == '__main__':
 
     # chamando o programa principal, passando os args 
     main(sys.argv)
+
+    # python3 "/Users/murilochaves/Documents/UpGestão/Web/up/app/components/etiqueta_2_M_C/Nova Etiqueta SISO/scriptEtiqueta_PIMACO_5x13_multiplosProds-POSSISO.py" '{ "prod":[ { "pro_desc":"TESTE", "cod_bar":1878, "pro_un":"KG", "pro_vlr":"110.000", "qtd":17 }, { "pro_desc":"adoro SNACKS CAES MINI/FILHOTE 80G", "cod_bar":3013, "pro_un":"UN", "pro_vlr":"3.970", "qtd":32 }, { "pro_desc":"GATOS BOLAS DE PELOS 80G","cod_bar":3012, "pro_un":"UN", "pro_vlr":"6.250", "qtd":21 }, { "pro_desc":"ALCON BOTTON FISH 50G", "cod_bar":1894, "pro_un":"PT", "pro_vlr":"6.690", "qtd":22 }, { "pro_desc":"BANHEIRO CAT TOILETTE 56X40X38CM - 96301", "cod_bar":3790, "pro_un":"UN", "pro_vlr":"104.000", "qtd":7 } ], "config":{ "pageWidith":29.7, "pageHeight":21, "marginLeft":0.7, "marginRight":0.3, "barCodeBase":"pro_cod_pro", "cols":3, "fontSize":7 }, "total":99 }' '1236'
