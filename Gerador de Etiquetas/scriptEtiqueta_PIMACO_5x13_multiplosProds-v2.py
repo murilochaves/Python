@@ -1,4 +1,4 @@
-#coding: utf-8
+#coding:utf-8
 
 """
 Gerador de código de barra desenvolvido em Python para múltiplos produtos - PÓS SISOS
@@ -183,9 +183,9 @@ def constituir(arquivo = "etiqueta.pdf", pagesize = A4, idCliente = 0, margemX =
     
     return PDF
 
-def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, qtdTotalEtiquetas = 0, lista = 0):
+def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, qtdTotalEtiquetas = 0, lista = []):
 
-    print('\n### Iniciando Processo de Plotagem ###\n')
+    print('\n### Plotando ###\n')
 
     print('\t* Qtd. total de Etiquetas: ', qtdTotalEtiquetas)
 
@@ -235,9 +235,11 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
         # Verificando se o código tem até 14 caracteres
         if (len(str(barCode)) > 14):
             print('Tamanho excede 14 dígitos, perdendo centralização')
+        # Transformando o código em string
         ajuste_barCode = switchCase_barCode(str(barCode))
-        # Plotando o código de barras
+        # Transformando código em barras
         barCode = code128.Code128(barCode)
+        # Plotando o código de barras
         barCode.drawOn(
             PDF, 
             x = margemXInicial + ajuste_barCode + ((larguraEtiqueta + 0.2 * cm) * coluna), 
@@ -267,7 +269,6 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
             y = tamanhoVertical - margemYInicial - (1.9 * cm) - (alturaEtiqueta * linha), 
             text = 'R$ ' + preco
             )
-        
 
     def rodar(qtd_linhas, qtd_colunas, coluna_final, lista):
         aux = 0
@@ -317,12 +318,13 @@ def main():
     É passado os argumentos do console para ter seu conteúdo separado para ser utilizado no decorrer do fluxo.
     '''
 
-    print('Versão 30/out/2018 16h37 v2')
+    print('Versão 31/out/2018 8h09 v1')
 
     # imprimindo processo no console
-    print('\n### Iniciando Processo das Etiquetas ###\n')
+    print('\n### Iniciando ###\n')
 
     contJSON = sys.argv
+    print('\t* Args:', contJSON)
 
     # setando uma variável com todo o conteúdo do JSON
     carrJSON = json.loads(contJSON[1])
@@ -411,19 +413,3 @@ def main():
         )
 
 if __name__ == '__main__':
-
-    '''
-    Esta função tem como objetivo  chamar o programa principal, passando os argumentos informados via console.
-
-    argv[1] = Conteúdo JSON
-    argv[2] = idCliente
-
-    EX: python3 script.py '{ "prod":[ { "pro_desc":"888888888 ALCON CLUB ALIM EXTRUS 500G", "cod_bar":1878, "pro_un":"KG", "pro_vlr":"110.000", "qtd":5 }, { "pro_desc":"ADORE SNACKS CAES MINI/FILHOTE 80G", "cod_bar":3013, "pro_un":"UN", "pro_vlr":"3.970", "qtd":3 }, { "pro_desc":"ADORE SNACKS GATOS BOLAS DE PELOS 80G", "cod_bar":3012, "pro_un":"UN", "pro_vlr":"6.250", "qtd":7 }, { "pro_desc":"ALCON BOTTON FISH 50G", "cod_bar":1894, "pro_un":"PT", "pro_vlr":"6.690", "qtd":2 }, { "pro_desc":"BANHEIRO CAT TOILETTE 56X40X38CM - 96301", "cod_bar":3790, "pro_un":"UN", "pro_vlr":"104.000", "qtd":7 } ], "config":{ "pageWidith":29.7, "pageHeight":21, "marginLeft":0.7, "marginRight":0.3, "barCodeBase":"pro_cod_pro", "cols":3, "fontSize":7 }, "total":24 }' 1236
-
-    E como resposta, é criado um arquivo PDF com todas as etiquetas referentes ao JSON.
-    '''
-
-    # chamando o programa principal, passando os args 
-    main()
-
-    # python3 "/Users/murilochaves/Documents/UpGestão/Web/up/app/components/etiqueta_2_M_C/Nova Etiqueta SISO/scriptEtiqueta_PIMACO_5x13_multiplosProds-POSSISO.py" '{ "prod":[ { "pro_desc":"TESTE", "cod_bar":1878, "pro_un":"KG", "pro_vlr":"110.000", "qtd":17 }, { "pro_desc":"adoro SNACKS CAES MINI/FILHOTE 80G", "cod_bar":3013, "pro_un":"UN", "pro_vlr":"3.970", "qtd":32 }, { "pro_desc":"GATOS BOLAS DE PELOS 80G","cod_bar":3012, "pro_un":"UN", "pro_vlr":"6.250", "qtd":21 }, { "pro_desc":"ALCON BOTTON FISH 50G", "cod_bar":1894, "pro_un":"PT", "pro_vlr":"6.690", "qtd":22 }, { "pro_desc":"BANHEIRO CAT TOILETTE 56X40X38CM - 96301", "cod_bar":3790, "pro_un":"UN", "pro_vlr":"104.000", "qtd":7 } ], "config":{ "pageWidith":29.7, "pageHeight":21, "marginLeft":0.7, "marginRight":0.3, "barCodeBase":"pro_cod_pro", "cols":3, "fontSize":7 }, "total":99 }' '1236'
