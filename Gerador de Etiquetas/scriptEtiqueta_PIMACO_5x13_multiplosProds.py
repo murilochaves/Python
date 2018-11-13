@@ -235,7 +235,7 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
         barCode = object.getBarcode()
         # Verificando se o código tem até 14 caracteres
         if (len(str(barCode)) > 14):
-            print('Tamanho excede 14 digitos, perdendo centralizacao')
+            print('Tamanho excede 14 dígitos, perdendo centralização')
         # Transformando o código em string
         ajuste_barCode = switchCase_barCode(str(barCode))
         # Transformando código em barras
@@ -251,7 +251,7 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
         cod = str(object.getCod())
         #Verificando o tamanho do código
         if (len(cod) > 10):
-            print('Codigo excede 10 digitos')
+            print('Código excede 10 dígitos')
         ajuste_cod = switchCase_code(cod)
         # Plotando o Código numeral
         PDF.drawString(
