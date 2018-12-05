@@ -1,3 +1,15 @@
+# Gerador de Etiqueta Universal
+
+Este documento tem como objetivo facilitar para o desenvolvedor sobre os possíveis informativos e erros que o sistema poderá apresentar, juntamente com o código de erro.
+
+Assim, facilita para o desenvolvedor verificar no console qual é o 'inf' ou 'erro' presente no escopo do script, bastando copiar qual é q informação do console e indo diretamente para o fluxo respectivo.
+
+## Informativos
+
+inf-001 : versão do Gerador
+
+## Erros
+
 # Gerador de Etiquetas por Python
 
 Este repositório tem como objetivo servir como backup de códigos funcionais de acordo com a progressão do desenvolvimento do código.
