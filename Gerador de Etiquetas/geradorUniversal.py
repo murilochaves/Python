@@ -9,7 +9,6 @@ Python==3.7.0
 Pillow==5.3.0
 reportlab==3.5.9
 
-
 Autor: JAYME, M. C.
 Última modificação: 05 de dezembro de 2018
 """
