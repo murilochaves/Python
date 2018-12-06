@@ -7,6 +7,7 @@ Assim, facilita para o desenvolvedor verificar no console qual é o 'inf' ou 'er
 ## Informativos
 
 inf-001 : Iniciando o processo das etiquetas
+
 inf-002 : Versão atual do Gerador
 inf-003 : Conteúdo dos argumentos passados via console
 inf-004 : Iformação sobre os produtos capturados do JSON
