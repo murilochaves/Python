@@ -52,11 +52,12 @@ class Etiqueta:
     '''
 
     # construtor
-    def __init__(self, desc = None, barcode = None, codigo = None, valor = None, qtd = None):
-        self.desc = desc
-        self.barcode = barcode
-        self.codigo = codigo
-        self.valor = valor
+    def __init__(self, desc = None, barcode = None, codigo = None, valor = None, quantidade = None):
+        self.desc       = desc
+        self.barcode    = barcode
+        self.codigo     = codigo
+        self.valor      = valor
+        self.quantidade = quantidade
 
     # getters
     def getDesc(self):
@@ -71,8 +72,8 @@ class Etiqueta:
     def getValor(self):
         return self.valor
 
-    def getQtd(self):
-        return self.getQtd
+    def getQuantidade(self):
+        return self.quantidade
 
     # setters
     def setDesc(self, desc):
@@ -87,8 +88,13 @@ class Etiqueta:
     def setValor(self, valor):
         self.valor = valor
 
-    def setQtd(self, qtd):
-        self.getQtd = qtd
+    def setQuantidade(self, quantidade):
+        self.quantidade = quantidade
+
+# variáveis globais
+
+# constituindo um array para embarcar os objetos 'etiqueta' com todas as informações pertinentes para o script
+lista_produtos = []
 
 # facilitar o debug para o desenvolvedor
 def printarDevMod(devMod, string):
@@ -104,12 +110,24 @@ def printarDevMod(devMod, string):
         )
 
 # criando o documento
-def criarDocumento():
-    
-    # capturando o caminho do diretório atual
-    diretorio = os.path.dirname(os.path.realpath(__file__))
+def criarDocumento(devMod):
 
-    print(diretorio)
+    try:
+        # capturando o caminho do diretório atual
+        diretorio = os.path.dirname(os.path.realpath(__file__))
+
+        # mostrando no console o fluxo referente
+        printarDevMod(
+            devMod,
+            '\n* diretorio: %s (inf-010)' % diretorio
+        )
+
+    except:
+        # caso o fluxo da criação do PDF dê errado, é mostrado no console o erro
+        printarDevMod(
+            devMod,
+            '\n* Erro na constituição do PDF (erro-002)'
+        )
 
 # manipulando o JSON
 def manipularJSON(devMod):
@@ -156,13 +174,49 @@ def manipularJSON(devMod):
             '\n* qtd total de etiquetas: %s (inf-006)' % qtd_Total_etiquetas
         )
 
+        # constituindo um array somente com as informações dos produtos do JSON
+        produtos = varJSON["prod"]
+
+        # mostrando no console o fluxo referente
+        printarDevMod(
+            devMod,
+            '\n* qtd de produtos: %s (inf-007)\n' % len(produtos)
+        )
+
+        # laço de repetição que tem como objetivo percorrer o array de produtos (var produtos) e ir adicionando um objeto com todas as informações pertinentes
+        # para cada item que estiver no produto (repetirá perante a inf-007)
+        #for item in produtos:
+        for i in range(len(produtos)):
+            # mostrando no console o fluxo referente
+            printarDevMod(
+                devMod,
+                '* item %s: %s (inf-008)' % (i+1, produtos[i])
+            )
+
+            # adicionando o objeto com as informações no array lista_produtos
+            lista_produtos.append(
+                # parte da criação do objeto
+                Etiqueta(
+                    desc       = produtos[i]["pro_desc"],
+                    barcode    = produtos[i]["cod_bar"],
+                    codigo     = produtos[i]["cod_bar"],
+                    valor      = produtos[i]["pro_vlr"],
+                    quantidade = produtos[i]["qtd"]
+                )
+            )
+
+        # mostrando no console o fluxo referente
+        printarDevMod(
+            devMod,
+            '\n* vetor de objetos criado com sucesso: %s (inf-009)' % lista_produtos
+        )
+
     except:
         # caso o fluxo da manipulação do JSON dê errado, é mostrado no console o erro
         printarDevMod(
             devMod,
             '\n* Erro na manipulação do JSON (erro-001)'
         )
-
 
 # main
 def main(devMod = True):
@@ -183,6 +237,11 @@ def main(devMod = True):
 
     # manipulando o JSON que é passado como argumento via console para o script
     manipularJSON(devMod)
+
+    # criando o arquivo PDF
+    criarDocumento(devMod)
+
+    
     
 
 # tratativas
