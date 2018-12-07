@@ -112,6 +112,29 @@ def printarDevMod(devMod, string):
 # criando o documento
 def criarDocumento(devMod):
 
+    # definindo todos os ajustes referentes à impressão da página da etiqueta (obtido no proprio site da PIMACO)
+    
+    # dimensão vertical da folha
+    tamanhoX = 21.0 * cm
+    # dimensão horizontal da folha
+    tamanhoY = 29.7 * cm
+
+    # dimensão da margem superior
+    margemSuperior = 1.52 * cm
+    # dimensão da margem lateral (esquerda)
+    margemLateral = 0.72 * cm
+
+    # dimensão da altura da própria etiqueta em questão
+    alturaUtilEtiqueta = 3.81 * cm
+    # dimensão da largura da própria etiqueta em questão
+    larguraUtilEtiqueta = 6.35 * cm
+
+    # quantidade de linhas
+    linhas = 7
+    # quantidade de colunas
+    colunas = 3
+
+    # para facilitar os testes de erro
     try:
         # capturando o caminho do diretório atual
         diretorio = os.path.dirname(os.path.realpath(__file__))
