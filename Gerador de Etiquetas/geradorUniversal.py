@@ -112,27 +112,9 @@ def printarDevMod(devMod, string):
 # criando o documento
 def criarDocumento(devMod):
 
-    # definindo todos os ajustes referentes à impressão da página da etiqueta (obtido no proprio site da PIMACO)
-    
-    # dimensão vertical da folha
-    tamanhoX = 21.0 * cm
-    # dimensão horizontal da folha
-    tamanhoY = 29.7 * cm
-
-    # dimensão da margem superior
-    margemSuperior = 1.52 * cm
-    # dimensão da margem lateral (esquerda)
-    margemLateral = 0.72 * cm
-
-    # dimensão da altura da própria etiqueta em questão
-    alturaUtilEtiqueta = 3.81 * cm
-    # dimensão da largura da própria etiqueta em questão
-    larguraUtilEtiqueta = 6.35 * cm
-
-    # quantidade de linhas
-    linhas = 7
-    # quantidade de colunas
-    colunas = 3
+    '''
+    Esta função tem como objetivo facilitar e centralizar a criação do documento PDF à ser utilizado pelo script.
+    '''
 
     # para facilitar os testes de erro
     try:
@@ -143,6 +125,43 @@ def criarDocumento(devMod):
         printarDevMod(
             devMod,
             '\n* diretorio: %s (inf-010)' % diretorio
+        )
+
+        # definindo os ajustes de paginação referentes à criação do PDF
+
+        # Configurações da Página
+
+        # dimensão vertical do documento
+        alturaDocumento  = 21.0 * cm
+        # dimensão horizontal do documento
+        larguraDocumento = 29.7 * cm
+        # margem superior
+        margemSuperior = 1.52 * cm
+        # margem esquerda
+        margemEsquerda = 0.72 * cm
+
+        # mostrando no console o fluxo referente
+        printarDevMod(
+            devMod,
+            '\n* configurações da página (inf-011): \nAltura : %s cm [%s] x Largura : %s [%s] \nMargem Superior : %s \nMargem Esquerda : %s' % (alturaDocumento/cm, alturaDocumento, larguraDocumento/cm, larguraDocumento, margemSuperior, margemEsquerda)
+        )
+
+        # Configurações da Etiqueta
+
+        # altura útil da etiqueta
+        alturaEtiqueta  = 3.81 * cm
+        # lalrgura útil da etiqueta
+        larguraEtiqueta = 6.35 * cm
+
+        # qtd de linhas perante a etiqueta
+        qtdLinhas  = 7
+        # qtd de Colunas perante a etiqueta
+        qtdColunas = 3
+
+        # mostrando no console o fluxo referente
+        printarDevMod(
+            devMod,
+            '\n* configurações da etiqueta (inf-012): \nAltura útil : %s cm [%s] x Largura útil : %s [%s] \nQtd. Linhas : %s \nQtd. Colunas: %s' % (alturaEtiqueta/cm, alturaEtiqueta, larguraEtiqueta/cm, larguraEtiqueta, qtdLinhas, qtdColunas)
         )
 
     except:
