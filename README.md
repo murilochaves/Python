@@ -83,13 +83,15 @@ ou
 
 Para habilitar o linter no visual studio code:
 
-1: Abrir o Command Palette do Code (⇧⌘P)
+1. Abrir o Command Palette do Code (⇧⌘P)
 
-2: Definir qual o modelo de linter à ser verificado, o PEP8 é as boas práticas dado pelo PyCon então, é uma boa de ser utilizado: Python: Selecionar Linter > PEP8
+2. Definir qual o modelo de linter à ser verificado, o PEP8 é as boas práticas dado pelo PyCon então, é uma boa de ser utilizado: Python: Selecionar Linter > PEP8
 
-3: Caso deseja verificar se o Linter está habilitado, poderá verificar com: Python: Habilitar Linting > ON/OFF
+3. Caso deseja verificar se o Linter está habilitado, poderá verificar com: Python: Habilitar Linting > ON/OFF
 
-4: O linter sempre será realizado quando salvar um arquivo .py, porém, se quiser verificar antes, basta executar: Python: Executar Linting
+4. O linter sempre será realizado quando salvar um arquivo .py, porém, se quiser verificar antes, basta executar: Python: Executar Linting
+
+PS.: Maiores informações: [Linting - Visual Studio Code](https://code.visualstudio.com/docs/python/linting)
 
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
