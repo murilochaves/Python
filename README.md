@@ -71,7 +71,9 @@ pip        10.0.1
 setuptools 39.0.1 
 ```
 
-## LINTER
+## Boas práticas
+
+### PEP8
 
 [PEP8](https://www.python.org/dev/peps/pep-0008/) é referente para as boas práticas do Python
 
@@ -92,6 +94,10 @@ Para habilitar o linter no visual studio code:
 4. O linter sempre será realizado quando salvar um arquivo .py, porém, se quiser verificar antes, basta executar: Python: Executar Linting
 
 PS.: Maiores informações: [Linting - Visual Studio Code](https://code.visualstudio.com/docs/python/linting)
+
+### Limitar cada linha de código a 80 caracteres, embora 99 seja aceitável
+
+[Regra IBM](https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width)
 
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
