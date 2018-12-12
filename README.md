@@ -73,7 +73,7 @@ setuptools 39.0.1
 
 ## LINTER
 
-Usar o PEP8 para boas práticas
+[PEP8](https://www.python.org/dev/peps/pep-0008/) é referente para as boas práticas do Python
 
 ``` $ pip install pep8 ```
 
