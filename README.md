@@ -59,6 +59,18 @@ $ source myvenv/bin/activate
 $ alias ll='ls -lG'
 ```
 
+## Pacotes instalados em default do PIP
+```
+$ pip list
+```
+
+```
+Package    Version
+---------- -------
+pip        10.0.1 
+setuptools 39.0.1 
+```
+
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
 - **IDE**: [Microsoft Visual Studio Code](https://code.visualstudio.com) v.1.17.2
