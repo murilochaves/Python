@@ -59,6 +59,46 @@ $ source myvenv/bin/activate
 $ alias ll='ls -lG'
 ```
 
+## Pacotes instalados em default do PIP
+```
+$ pip list
+```
+
+```
+Package    Version
+---------- -------
+pip        10.0.1 
+setuptools 39.0.1 
+```
+
+## Boas práticas
+
+### PEP8
+
+[PEP8](https://www.python.org/dev/peps/pep-0008/) é referente para as boas práticas do Python
+
+``` $ pip install pep8 ```
+
+ou
+
+``` pip install pylint ```
+
+Para habilitar o linter no visual studio code:
+
+1. Abrir o Command Palette do Code (⇧⌘P)
+
+2. Definir qual o modelo de linter à ser verificado, o PEP8 é as boas práticas dado pelo PyCon então, é uma boa de ser utilizado: Python: Selecionar Linter > PEP8
+
+3. Caso deseja verificar se o Linter está habilitado, poderá verificar com: Python: Habilitar Linting > ON/OFF
+
+4. O linter sempre será realizado quando salvar um arquivo .py, porém, se quiser verificar antes, basta executar: Python: Executar Linting
+
+PS.: Maiores informações: [Linting - Visual Studio Code](https://code.visualstudio.com/docs/python/linting)
+
+### Limitar cada linha de código a 80 caracteres, embora 99 seja aceitável
+
+[Regra IBM](https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width)
+
 ## Observações
 - **Versão**: [Python](https://www.python.org) v.2.7.10
 - **IDE**: [Microsoft Visual Studio Code](https://code.visualstudio.com) v.1.17.2

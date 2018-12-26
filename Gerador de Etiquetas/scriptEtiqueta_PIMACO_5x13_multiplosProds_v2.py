@@ -2,7 +2,7 @@
 #coding:utf-8
 
 """
-Gerador de código de barra desenvolvido em Python para múltiplos produtos - PÓS SISOS
+Gerador de código de barra desenvolvido em Python para múltiplos produtos, com duas linhas de descrição.
 
 Modelo: PIMACO A4251 (13 linhas X 5 colunas)
 Documento: A4 (21.0cm x 29.7cm)
@@ -15,7 +15,7 @@ Pillow==5.3.0
 reportlab==3.5.9
 
 Autor: JAYME, M. C.
-Última modificação: 30 de outubro de 2018
+Última modificação: 13 de novembro de 2018
 """
 
 import sys
@@ -82,39 +82,40 @@ class Entidade:
 
 def switchCase_desc(desc):
 
-    if (len(desc) > 25):
-        desc = desc[:25]
+    if (len(desc) > 27):
+        desc = desc[:27]
 
-    desc = desc[:25]
+    desc = desc[:27]
     tamanhoString = str(len(desc))
 
     return {
-        '1' : 55,
-        '2' : 54,
-        '3' : 52,
-        '4' : 51,
-        '5' : 48,
-        '6' : 46,
-        '7' : 48,
-        '8' : 45,
-        '9' : 44,
-        '10' : 43,
-        '11' : 41,
-        '12' : 40,
-        '12' : 40,
-        '13' : 38,
-        '14' : 36,
-        '15' : 35,
-        '16' : 33,
-        '17' : 31,
-        '18' : 29,
-        '19' : 27,
-        '20' : 25,
-        '21' : 23,
-        '22' : 21,
-        '23' : 19,
-        '24' : 17,
-        '25': 14,
+        '1' : 57,
+        '2' : 56,
+        '3' : 54,
+        '4' : 53,
+        '5' : 50,
+        '6' : 48,
+        '7' : 50,
+        '8' : 47,
+        '9' : 46,
+        '10' : 45,
+        '11' : 43,
+        '12' : 42,
+        '13' : 41,
+        '14' : 38,
+        '15' : 37,
+        '16' : 35,
+        '17' : 33,
+        '18' : 31,
+        '19' : 29,
+        '20' : 27,
+        '21' : 26,
+        '22' : 23,
+        '23' : 21,
+        '24' : 21,
+        '25': 16,
+        '26': 16,
+        '27': 19,
     } [tamanhoString]
 
 def switchCase_barCode(barCode):
@@ -144,16 +145,16 @@ def switchCase_code(cod):
     tamanhoCod = str(len(cod))
 
     return {
-        '1' : 54,
-        '2' : 54,
-        '3' : 52,
-        '4' : 51,
-        '5' : 49,
-        '6' : 47,
-        '7' : 46,
-        '8' : 44,
-        '9' : 42,
-        '10' : 40,
+        '1' : 56,
+        '2' : 56,
+        '3' : 54,
+        '4' : 53,
+        '5' : 51,
+        '6' : 49,
+        '7' : 48,
+        '8' : 46,
+        '9' : 44,
+        '10' : 42,
     } [tamanhoCod]
 
 def switchCase_preco(preco):
@@ -161,12 +162,12 @@ def switchCase_preco(preco):
     tamanhoPreco = str(len(preco))
 
     return {
-        '4' : 44,
-        '5' : 45,
-        '6' : 43,
-        '7' : 41,
-        '8' : 40,
-        '9' : 38,
+        '4' : 49,
+        '5' : 48,
+        '6' : 46,
+        '7' : 44,
+        '8' : 43,
+        '9' : 41,
     } [tamanhoPreco]
 
 def constituir(arquivo = "etiqueta.pdf", pagesize = A4, idCliente = 0, margemX = 0, tamHorizontal = 0, margemY = 0, tamanhoVertical = 0, larguraEtiqueta = 0, alturaEtiqueta = 0, imprimirGrade = False):
@@ -175,9 +176,16 @@ def constituir(arquivo = "etiqueta.pdf", pagesize = A4, idCliente = 0, margemX =
     if not os.path.exists("/var/www/storage/midia/%s/" % idCliente):
         os.makedirs("/var/www/storage/midia/%s" % idCliente)
 
-    PDF = canvas.Canvas("/var/www/storage/midia/%s/etiquetas.pdf" % idCliente, pagesize)
+    #if not os.path.exists("./novo/var/www/storage/midia/%s/" % idCliente):
+    #    os.makedirs("./novo/var/www/storage/midia/%s" % idCliente)
 
-    PDF.setFont("Helvetica", 6)
+    PDF = canvas.Canvas("/var/www/storage/midia/%s/etiquetas.pdf" % idCliente, pagesize)
+    
+    #PDF = canvas.Canvas("./novo/var/www/storage/midia/%s/etiquetas.pdf" % idCliente, pagesize)
+
+    #PDF.setFont("Helvetica", 6)
+
+    PDF.setFont("Helvetica", 5)
     
     if (imprimirGrade != False):
         PDF.grid(range(int(margemX), int(tamHorizontal), int(larguraEtiqueta + (margemX / 2))), range(int(margemY), int(tamanhoVertical), int(alturaEtiqueta)))
@@ -217,59 +225,123 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
     print('\t* Qtd. de paginas: ', paginasDocumento)
 
     def plotarEtiquetas(object, coluna, linha):
+        
         # Descrição do Produto
         desc = object.getDesc()
-        # Limitando o tamanho da string para 25
-        if (len(desc) > 25): 
-            desc = desc[:25]
-        # Definindo o valor referente à topologia da plotagem
-        ajuste_desc = switchCase_desc(desc)
-        # Plotando o nome do produto
-        PDF.drawString(
-            x = margemXInicial + ajuste_desc + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-            y = tamanhoVertical - margemYInicial - (0.5 * cm) - (alturaEtiqueta * linha), 
-            text = desc
-            )
+
+        duasLinhas = False
         
-        # BarCode
+        # Particionando a String
+        if (len(desc) <= 27): 
+            desc = desc[:27]
+        if (len(desc) > 27):
+            duasLinhas = True
+
+            # Separando primeira parte de string
+            descPart1 = desc[:27]
+            # Separando a segunda parte da String
+            descPart2 = desc[27:54]
+
+            partesString = [descPart1, descPart2]
+
+        ajuste_desc = switchCase_desc(desc)
+
+
+        # BarCode do Produto
         barCode = object.getBarcode()
-        # Verificando se o código tem até 14 caracteres
+        
         if (len(str(barCode)) > 14):
-            print('Tamanho excede 14 dígitos, perdendo centralização')
-        # Transformando o código em string
+            print('Tamanho excede 14 digitos, perdendo centralizacao')
+        
         ajuste_barCode = switchCase_barCode(str(barCode))
-        # Transformando código em barras
+        
         barCode = code128.Code128(barCode)
-        # Plotando o código de barras
-        barCode.drawOn(
-            PDF, 
-            x = margemXInicial + ajuste_barCode + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-            y = tamanhoVertical - margemYInicial - (1.3 * cm) - (alturaEtiqueta * linha)
-            )
+
 
         # Cod
         cod = str(object.getCod())
-        #Verificando o tamanho do código
+        
         if (len(cod) > 10):
-            print('Código excede 10 dígitos')
+            print('Codigo excede 10 digitos')
+        
         ajuste_cod = switchCase_code(cod)
-        # Plotando o Código numeral
-        PDF.drawString(
-            x = margemXInicial + ajuste_cod + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-            y = tamanhoVertical - margemYInicial - (1.55 * cm) - (alturaEtiqueta * linha), 
-            text = cod
-            )
+
 
         # Preço
         preco = str(object.getValor()[:-1])
         ajuste_preco = switchCase_preco(preco)
-        # Plotando o preço do produto
 
-        PDF.drawString(
-            x = margemXInicial + ajuste_preco + ((larguraEtiqueta + 0.2 * cm) * coluna), 
-            y = tamanhoVertical - margemYInicial - (1.9 * cm) - (alturaEtiqueta * linha), 
-            text = 'R$ ' + preco
+
+        # Verificar se a descrição é para ser escrito em duas Strings
+        if duasLinhas == True:
+
+            ajusteLinha = 0.35
+            
+            # Imprimindo as duas linhas da Descrição
+            for i in range(2):
+
+                ajuste_desc = switchCase_desc(partesString[i])
+
+                PDF.drawString(
+                    x = margemXInicial + ajuste_desc + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                    y = tamanhoVertical - margemYInicial - (ajusteLinha * cm) - (alturaEtiqueta * linha), 
+                    text = partesString[i]        
+                )
+
+                ajusteLinha += 0.25
+
+            # Imprimindo o código de barras
+            barCode.drawOn(
+                PDF, 
+                x = margemXInicial + ajuste_barCode + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (1.4 * cm) - (alturaEtiqueta * linha)
             )
+
+            # Plotando o Código numeral
+            PDF.drawString(
+                x = margemXInicial + ajuste_cod + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (1.65 * cm) - (alturaEtiqueta * linha), 
+                text = cod
+            )
+
+            # Plotando o preço do produto
+            PDF.drawString(
+                x = margemXInicial + ajuste_preco + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (2 * cm) - (alturaEtiqueta * linha), 
+                text = 'R$ ' + preco
+            )
+        
+        # Se tiver somente uma linha
+        elif duasLinhas == False:
+
+            # Imprimindo a descrição do produto
+            PDF.drawString(
+                x = margemXInicial + ajuste_desc + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (0.5 * cm) - (alturaEtiqueta * linha),
+                text = desc
+            )
+
+            # Imprimindo o código de barras
+            barCode.drawOn(
+                PDF, 
+                x = margemXInicial + ajuste_barCode + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (1.3 * cm) - (alturaEtiqueta * linha)
+            )
+
+            # Plotando o Código numeral
+            PDF.drawString(
+                x = margemXInicial + ajuste_cod + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (1.55 * cm) - (alturaEtiqueta * linha),
+                text = cod
+            )
+
+            # Plotando o preço do produto
+            PDF.drawString(
+                x = margemXInicial + ajuste_preco + ((larguraEtiqueta + 0.2 * cm) * coluna), 
+                y = tamanhoVertical - margemYInicial - (1.9 * cm) - (alturaEtiqueta * linha), 
+                text = 'R$ ' + preco
+            )
+ 
 
     def rodar(qtd_linhas, qtd_colunas, coluna_final, lista):
         aux = 0
@@ -283,7 +355,7 @@ def plotar(PDF, margemXInicial = 0, tamanhoVertical = 0, margemYInicial = 0, lar
 
             if (aux >= 14):
                 PDF.showPage()
-                PDF.setFont("Helvetica", 6)
+                PDF.setFont("Helvetica", 5)
                 aux = 1
 
             if (linha + 1 != qtd_linhas):
@@ -319,7 +391,7 @@ def main():
     É passado os argumentos do console para ter seu conteúdo separado para ser utilizado no decorrer do fluxo.
     '''
 
-    print('Versao 31/out/2018 8h45 v1')
+    print('Versao 13/nov/2018 14h22 v1')
 
     # imprimindo processo no console
     print('\n### Iniciando ###\n')
@@ -420,4 +492,4 @@ if __name__ == '__main__':
     '''
     main()
 
-    # python3 "/Users/murilochaves/Documents/UpGestão/Web/up/app/components/etiqueta_2_M_C/Nova Etiqueta SISO/scriptEtiqueta_PIMACO_5x13_multiplosProds-POSSISO.py" '{ "prod":[ { "pro_desc":"TESTE", "cod_bar":1878, "pro_un":"KG", "pro_vlr":"110.000", "qtd":17 }, { "pro_desc":"adoro SNACKS CAES MINI/FILHOTE 80G", "cod_bar":3013, "pro_un":"UN", "pro_vlr":"3.970", "qtd":32 }, { "pro_desc":"GATOS BOLAS DE PELOS 80G","cod_bar":3012, "pro_un":"UN", "pro_vlr":"6.250", "qtd":21 }, { "pro_desc":"ALCON BOTTON FISH 50G", "cod_bar":1894, "pro_un":"PT", "pro_vlr":"6.690", "qtd":22 }, { "pro_desc":"BANHEIRO CAT TOILETTE 56X40X38CM - 96301", "cod_bar":3790, "pro_un":"UN", "pro_vlr":"104.000", "qtd":7 } ], "config":{ "pageWidith":29.7, "pageHeight":21, "marginLeft":0.7, "marginRight":0.3, "barCodeBase":"pro_cod_pro", "cols":3, "fontSize":7 }, "total":99 }' 1236
+    # $ python3 novaEtiqueta13-nov-2018.py '{ "prod":[ { "pro_desc":"TESTE", "cod_bar":1878, "pro_un":"KG", "pro_vlr":"110.000", "qtd":17 }, { "pro_desc":"adoro_SNACKS_CAES_MINI/FILHOTE_80G_produz_do_na_china_volumoso_para_plotar", "cod_bar":3013, "pro_un":"UN", "pro_vlr":"3.970", "qtd":32 }, { "pro_desc":"GATOS BOLAS DE PELOS 80G","cod_bar":3012, "pro_un":"UN", "pro_vlr":"6.250", "qtd":21 }, { "pro_desc":"ALCON BOTTON FISH 50G", "cod_bar":1894, "pro_un":"PT", "pro_vlr":"6.690", "qtd":22 }, { "pro_desc":"BANHEIRO CAT TOILETTE 56X40X38CM - 96301", "cod_bar":3790, "pro_un":"UN", "pro_vlr":"104.000", "qtd":7 } ], "config":{ "pageWidith":29.7, "pageHeight":21, "marginLeft":0.7, "marginRight":0.3, "barCodeBase":"pro_cod_pro", "cols":3, "fontSize":7 }, "total":99 }' 1236

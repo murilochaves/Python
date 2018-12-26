@@ -1,6 +1,7 @@
 # Django
 
-Este repositório possui como objetivo armazenar alguns códigos escritos em Python referentes à qualquer tipo de coisa relacionada ao Django.
+Este repositório possui como objetivo armazenar alguns códigos escritos em Python referentes à qualquer tipo de coisa relacionada ao [Django](https://docs.djangoproject.com/pt-br/2.1/contents/).
+
 
 ## Preparação do Ambiente
 
