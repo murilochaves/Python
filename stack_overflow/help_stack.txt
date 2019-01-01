@@ -1,0 +1,178 @@
+# Problema #
+Olá Matheus, pelo que entendi você quer criar um novo arquivo inserindo uma nova coluna utilizando os parâmetros da sua forma geométrica. Caso seja um 'quadrado', você multiplica o segundo parâmetro por ele mesmo, caso seja um 'retângulo', você multiplica o segundo pelo terceiro parâmetro.
+
+O que está errado no seu código é que você imprime o resultado da multiplicação na tela utilizando a função *print*, enquanto deveria criar uma nova lista *conteudo* contendo a nova coluna área para utilizar dentro de *arq.writelines(conteudo)*. Além disso, há alguns probleminhas no tratamento das strings. Mas vamos para a solução.
+
+# Solução 1 - Trabalhando com Arquivos de Texto #
+No seu caso, você está manipulando um arquivo de texto (.txt). Isto deixa mais difícil (e chato) o trabalho de tratar os dados.
+
+### Primeiro abrimos o arquivo para leitura ###
+Quando realizamos a leitura, *lines* recebe uma lista de strings, onde cada string é uma linha do documento.
+
+    arq = open('area.txt','r')
+    lines = arq.readlines()
+    arq.close()
+
+### Depois tratamos os dados ###
+Iterando por esta lista, removemos o (\n) e quebramos a string pelo delimitador (;). Desta forma, *geom* é uma lista com os elementos de cada linha. Dependendo de cada forma geométrica, calculamos a área e reinserimos em *geom* utilizando *geom.append(str(area))*.
+
+Com a lista contendo o nova informação, criamos uma nova linha (*new_line*) no mesmo padrão que lemos, ou seja, uma string com os dados separados por ponto e vírgula (;) e com o \n no final. Com a linha criada, criamos por fim a lista destas strings.
+
+    new_lines = []
+    for line in lines:
+        geom = line.strip('\n').split(';')
+
+        # quadrado
+        if geom[0] == 'quadrado':
+            area = float(geom[1]) * float(geom[1])
+            geom.append(str(area))
+
+        # retângulo
+        else:    
+            area = float(geom[1]) * float(geom[2])
+            geom.append(str(area))
+
+        new_line = ';'.join(geom) + '\n'
+        new_lines.append(new_line)
+
+### Finalizamos salvando o arquivo ###
+    arq = open('novo.txt','w')
+    arq.writelines(new_lines)
+    arq.close()
+
+### Saída - Arquivo novo.txt ###
+
+    quadrado;2;4.0
+    retangulo;2;3;6.0
+
+# Solução 2 - Tratando arquivo CSV #
+Como pudemos ver, trabalhar com strings do arquivo texto tem seus inconvenientes.Temos que quebrar manualmente as linhas em colunas, remover as quebras de linhas, etc. Assim, segue o mesmo tratamento, só que utilizando a biblioteca *csv*.
+
+### Arquivo de entrada - area.csv ###
+    quadrado;2
+    retangulo;2;3
+    retangulo;1;2
+    quadrado;3
+
+### Solução ###
+
+    import csv
+    
+    with open('area.csv', 'r') as f, \
+        open('new_area.csv', 'w') as new_f:
+    
+        reader = csv.reader(f, delimiter=';')
+        writer = csv.writer(new_f, delimiter=';')
+    
+        for geom in reader:
+            if geom[0] == 'quadrado':
+                area = float(geom[1]) * float(geom[1])
+                geom.append(str(area))
+            else:
+                area = float(geom[1]) * float(geom[2])
+                geom.append(str(area))
+    
+            writer.writerow(geom)
+
+### Arquivo de saída - new_area.csv ###
+
+    quadrado;2;4.0
+    retangulo;2;3;6.0
+    retangulo;1;2;2.0
+    quadrado;3;9.0
+
+# Conclusão #
+Se irá trabalhar com dados, prefira formatos de arquivos e uso de bibliotecas mais otimizadas para este trabalho. Irá te poupar muito tempo e esforço. Grande abraço.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Para **validar** se a string está neste formato, você pode usar `^[1-9]\d{0,2}(\.\d{3})*,\d{2}$`:
+
+- `^` e `$` são [marcadores][1] para o início e fim da string. Assim você garante que a string só vai ter o que está especificado na regex
+- `[1-9]` é uma [classe de caracteres][2]. Os colchetes indicam que você quer qualquer coisa que esteja dentro deles. No caso, `1-9` é "qualquer dígito de 1 a 9"
+- `\d` é um [atalho][3] para `[0-9]` (dígitos de 0 a 9) e `{0,2}` é um [quantificador][4] que significa "entre zero e duas ocorrências"
+    - portanto `[1-9]\d{0,2}` quer dizer que eu tenho um dígito de 1 a 9, seguido de zero, um ou dois dígitos de 0 a 9. Isso garante que a string não começa com zero
+
+Em seguida, temos `(\.\d{3})*`:
+
+- `\.` significa o caractere ponto (`.`). O ponto tem significado especial em regex (significa "qualquer caractere"), mas com a `\` antes, ele "perde seus poderes" e vira um caractere comum.
+- `\d{3}` são 3 ocorrências de qualquer dígito de 0 a 9
+    - a sequência "ponto seguido de 3 dígitos" está entre parênteses e em seguida temos o `*`, que significa "zero ou mais ocorrências". Isso quer dizer que podemos ter várias ocorrências (ou nenhuma) de "ponto seguido de 3 dígitos" (isso serve para verificarmos a sequência `.300.250` da sua entrada). O `*` também verifica se há zero ocorrências, o que é útil para valores menores que 1000.
+- por fim, temos a vírgula seguida de 2 dígitos (`,\d{2}`)
+
+Isso garante que a entrada estará no formato desejado. Veja [aqui][5] a regex funcionando.
+
+---
+Para **obter** o valor numérico, você pode simplesmente remover tudo que não for dígito e converter para `int`. Para isso, usamos a regex `\D` (que é o oposto de `\d`, ou seja, é tudo que não for dígitos de 0 a 9).
+
+Com isso você terá a quantidade total de **centavos**. Abaixo eu transformo o valor para `int`, já que é [melhor usar tipos inteiros para trabalhar com valores monetários][6]. Se quiser o valor sem os centavos, basta dividir por 100, e se quiser o valor dos centavos, use o operador `%`:
+
+    import re
+
+    s = "7.300.250,00"
+    # se está no formato desejado
+    if re.match(r"^[1-9]\d{0,2}(\.\d{3})*,\d{2}$", s):
+        # retira tudo que não for dígito e converte para int
+        valor = int(re.sub(r"\D", "", s))
+        print("Valor (quantidade total de centavos): {}".format(valor))
+        print("Valor sem os centavos: {}".format(valor // 100))
+        print("Valor dos centavos: {}".format(valor % 100))
+
+A saída é:
+
+>Valor (quantidade total de centavos): 730025000<br>
+Valor sem os centavos: 7300250<br>
+Valor dos centavos: 0
+
+---
+Apenas um detalhe sobre o `\d`: ele também pode corresponder a [outros caracteres que representam dígitos](http://www.fileformat.info/info/unicode/category/Nd/list.htm), como por exemplo os caracteres `٠١٢٣٤٥٦٧٨٩` (veja [esta resposta](https://unix.stackexchange.com/a/414230) para mais detalhes).
+
+Exemplo:
+
+    s = "1٩,10"
+    if re.match(r"^[1-9]\d{0,2}(\.\d{3})*,\d{2}$", s):
+        valor = int(re.sub(r"\D", "", s))
+        print("Valor (quantidade total de centavos): {}".format(valor))
+
+Eu usei o caractere `٩` ([arabic-indic digit nine][7]), que apesar de parecer com o dígito `9`, é um outro caractere. A saída é:
+
+> Valor (quantidade total de centavos): 1910
+
+Isso porque o `\d` também pega este caractere. Se quiser que somente os dígitos de `0` a `9` sejam considerados, troque `\d` por `[0-9]`:
+
+    if re.match(r"^[1-9][0-9]{0,2}(\.[0-9]{3})*,[0-9]{2}$", s):
+        ... o resto é igual
+
+
+  [1]: https://www.regular-expressions.info/anchors.html
+  [2]: https://www.regular-expressions.info/charclass.html
+  [3]: https://www.regular-expressions.info/shorthand.html
+  [4]: https://www.regular-expressions.info/repeat.html
+  [5]: https://regex101.com/r/u7s8Qm/2/
+  [6]: https://pt.stackoverflow.com/q/5746/112052
+  [7]: http://www.fileformat.info/info/unicode/char/0669/index.htm
