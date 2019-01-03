@@ -80,9 +80,10 @@ print('\n\tCount \t Word')
 words_classified = 0
 
 # mostrando as palavras no console
-for word in word_counter:
-    print('\t{}\t{}'.format(word_counter[word], word))
-    words_classified += word_counter[word]
+for word, frequency in word_counter.items():
+    print('\t{}\t{}'.format(frequency, word))
+
+    words_classified += frequency
 
 # mostrando a informacao no console
 print('\n\t{}\t {}'.format(words_classified, len(word_counter)))
