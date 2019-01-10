@@ -1,13 +1,17 @@
-'''
-Este código, possui como objetivo facilitar a criação de uma quantidade de pastas tendo um arquivo .txt em branco dentro de cada uma, visando uma necessidade do dia-a-dia que tive. A quantidade de pastas é informada via console: "python3 ...create_folders.py 12", assim ele criará 12 pastas com o .txt desejado.
-'''
-
 import sys
 import os
 
+"""
+Este código, possui como objetivo facilitar a criação de uma quantidade de
+pastas tendo um arquivo .txt em branco dentro de cada uma, visando uma
+necessidade do dia-a-dia que tive. A quantidade de pastas é informada via
+console: "python3 ...create_folders.py 12", assim ele criará 12 pastas com o
+.txt desejado.
+"""
+
 
 def execute():
-    '''Esta função tem como objetivo centralizar o escopo do script'''
+    """Esta função tem como objetivo centralizar o escopo do script"""
 
     folder_quantity = int(sys.argv[1])
 
