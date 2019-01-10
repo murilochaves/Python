@@ -4,18 +4,6 @@
 # TODO: criar uma lista dos atores que apareceram no programa de televisão
 # Flying Circus do Monty Python.
 
-# Escreva uma função chamada create_cast_list, que recebe um nome de arquivo
-# como entrada e retorna uma lista com o nome dos atores.
-
-# Ela será executado sobre o arquivo flying_circus_cast.txt
-# (essa informação foi recolhida de imdb.com).
-
-# Cada linha do arquivo consiste no nome do ator, uma vírgula e algumas
-# informações (desarrumadas) sobre os papéis em que eles atuaram no programa.
-
-# Você precisará extrair apenas o nome e adicioná-lo a uma lista. Você pode
-# usar o método .split() para processar cada linha.
-
 
 def create_cast_list(filename):
     cast_list = []
