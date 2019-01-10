@@ -19,3 +19,74 @@ Este repositório possui como objetivo, armazenar uma simples raspagem de dados 
 ```name sobrename	name sobrename	...	 characters / ... n episodes, start_date-final_date```
 
 4. **Hint**: Extrair apenas o nome e adicioná-lo a uma lista. Pode usar o método ```.split()``` para acessar cada linha.
+
+## Saída:
+
+É esperado algo parecido com:
+
+```
+Graham Chapman
+Eric Idle
+Terry Jones
+Michael Palin
+Terry Gilliam
+John Cleese
+Carol Cleveland
+Ian Davidson
+John Hughman
+The Fred Tomlinson Singers
+Connie Booth
+Bob Raymond
+Lyn Ashley
+Rita Davies
+Stanley Mason
+David Ballantyne
+Donna Reading
+Peter Brett
+Maureen Flanagan
+Katya Wyeth
+Frank Lester
+Neil Innes
+Dick Vosburgh
+Sandra Richards
+Julia Breck
+Nicki Howorth
+Jimmy Hill
+Barry Cryer
+Jeannette Wild
+Marjorie Wilde
+Marie Anderson
+Caron Gardner
+Nosher Powell
+Carolae Donoghue
+Vincent Wong
+Helena Clayton
+Nigel Jones
+Roy Gunson
+Daphne Davey
+Stenson Falke
+Alexander Curry
+Frank Williams
+Ralph Wood
+Rosalind Bailey
+Marion Mould
+Sheila Sands
+Richard Baker
+Douglas Adams
+Ewa Aulin
+Reginald Bosanquet
+Barbara Lindley
+Roy Brent
+Jonas Card
+Tony Christopher
+Beulah Hughes
+Peter Kodak
+Lulu
+Jay Neill
+Graham Skidmore
+Ringo Starr
+Fred Tomlinson
+David Hamilton
+Suzy Mandel
+Peter Woods
+```
