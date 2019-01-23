@@ -7,8 +7,6 @@ from sys import argv
 # definindo o sítio em que se encontra os dados para ser captados
 site_farm = 'https://meiobit.com'
 
-# https://meiobit.com/page/2/
-
 
 def site_request(site):
     """
@@ -117,15 +115,24 @@ def mining_article(site_farm):
         print('\nText:\n{}'.format(article_text))
 
 
-def gathering_all_articles(site, recorrency, initial_page=2):
+def gathering_all_articles(site, recorrency=False, initial_page=2):
+    """
+    Esta função tem como objetivo pegar TODOS os artigos até o site se esgotar.
+    """
 
+    # apenas transformando a execução do while inifitamente até dar o erro da
+    # página não possuir links de artigos
     if 'max' in recorrency:
         execute = True
 
+    # auxiliar para ir navegando em todos os sites
     aux_site = site
 
+    # número inicial da página, caso ela seja informada
     number_page = initial_page
 
+    # este loop tente a ser finito até o site apresentar algum erro de
+    # não encontrado
     while execute:
         # mostrando no console
         print('\n\n\tNext Page: {}'.format(aux_site))
@@ -136,10 +143,13 @@ def gathering_all_articles(site, recorrency, initial_page=2):
         for links in article_links:
             mining_article(links)
 
+        # adicionando o index da página
         aux_site = site + '/page/' + '{0}'.format(number_page)
 
+        # mostrando em console qual é nova página à ser testada
         print(aux_site)
 
+        # incrementando o número da página para sempre ir navegando
         number_page += 1
 
 
