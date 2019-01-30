@@ -16,9 +16,9 @@ Pillow==5.3.0
 reportlab==3.5.9
 
 Autor: JAYME, M. C.
-Última modificação: 29 de Janeiro de 2019
+Última modificação: 30 de Janeiro de 2019
 
-Última atualização: plotando opção de parcelamento
+Última atualização: alterando string do parcelamento
 """
 
 import sys
@@ -220,12 +220,12 @@ def constituir(
     if not os.path.exists("/var/www/storage/midia/{0}/".format(idCliente)):
         os.makedirs("/var/www/storage/midia/{0}".format(idCliente))
 
-    #if not os.path.exists("./29-01/var/www/storage/midia/{0}/".format(idCliente)):
-    #    os.makedirs("./29-01/var/www/storage/midia/{0}".format(idCliente))
+    #if not os.path.exists("./30-01/var/www/storage/midia/{0}/".format(idCliente)):
+    #    os.makedirs("./30-01/var/www/storage/midia/{0}".format(idCliente))
 
     PDF = canvas.Canvas("/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
 
-    #PDF = canvas.Canvas("./29-01/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
+    #PDF = canvas.Canvas("./30-01/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
 
     #PDF.setFont("Helvetica", 6)
 
@@ -334,20 +334,25 @@ def plotar(
                 ajuste_parcelamento = 0.9
                 # Plotando as parcelas do produto
                 PDF.drawString(
-                    x=margemXInicial + 36 + ((larguraEtiqueta + 0.2 * cm) * coluna),
+                    # x=margemXInicial + 36 + ((larguraEtiqueta + 0.2 * cm) * coluna),
+                    x=margemXInicial + 44 + ((larguraEtiqueta + 0.2 * cm) * coluna),
+                    # y=tamanhoVertical - margemYInicial - (2 * cm) - (alturaEtiqueta * linha),
                     y=tamanhoVertical - margemYInicial - (2 * cm) - (alturaEtiqueta * linha),
-                    text='(ou até {0} x R$ {1:.2f})'.format(parcelamento, (float(preco) / parcelamento))
+                    # text='(ou até {0} x R$ {1:.2f})'.format(parcelamento, (float(preco) / parcelamento))
+                    text='{0}x R$ {1:.2f}'.format(parcelamento, (float(preco) / parcelamento))
                 )
             else:
                 # ajuste de linha
                 ajuste_parcelamento = 0.88
                 # Plotando as parcelas do produto
                 PDF.drawString(
-                    x=margemXInicial + 36 + ((larguraEtiqueta + 0.2 * cm) * coluna),
+                    # x=margemXInicial + 36 + ((larguraEtiqueta + 0.2 * cm) * coluna),
+                    x=margemXInicial + 44 + ((larguraEtiqueta + 0.2 * cm) * coluna),
+                    # y=tamanhoVertical - margemYInicial - ((2.2 * ajuste_parcelamento) * cm) - (alturaEtiqueta * linha),
                     y=tamanhoVertical - margemYInicial - ((2.2 * ajuste_parcelamento) * cm) - (alturaEtiqueta * linha),
-                    text='(ou até {0} x R$ {1:.2f})'.format(parcelamento, (float(preco) / parcelamento))
+                    # text='(ou até {0} x R$ {1:.2f})'.format(parcelamento, (float(preco) / parcelamento))
+                    text='{0}x R$ {1:.2f}'.format(parcelamento, (float(preco) / parcelamento))
                 )
-            
 
         # Verificar se a descrição é para ser escrito em duas Strings
         if duasLinhas:
