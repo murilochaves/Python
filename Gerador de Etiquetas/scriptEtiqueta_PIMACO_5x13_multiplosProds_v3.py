@@ -217,15 +217,15 @@ def constituir(
         imprimirGrade=False):
     diretorio = os.path.dirname(os.path.realpath(__file__))
 
-    if not os.path.exists("/var/www/storage/midia/{0}/".format(idCliente)):
-        os.makedirs("/var/www/storage/midia/{0}".format(idCliente))
+    #if not os.path.exists("/var/www/storage/midia/{0}/".format(idCliente)):
+    #    os.makedirs("/var/www/storage/midia/{0}".format(idCliente))
 
-    #if not os.path.exists("./30-01/var/www/storage/midia/{0}/".format(idCliente)):
-    #    os.makedirs("./30-01/var/www/storage/midia/{0}".format(idCliente))
+    if not os.path.exists("./30-01/var/www/storage/midia/{0}/".format(idCliente)):
+        os.makedirs("./30-01/var/www/storage/midia/{0}".format(idCliente))
 
-    PDF = canvas.Canvas("/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
+    #PDF = canvas.Canvas("/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
 
-    #PDF = canvas.Canvas("./30-01/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
+    PDF = canvas.Canvas("./30-01/var/www/storage/midia/{0}/etiquetas.pdf".format(idCliente), pagesize)
 
     #PDF.setFont("Helvetica", 6)
 
@@ -572,7 +572,7 @@ def main():
         tamanhoVertical=tamanhoY,
         larguraEtiqueta=larguraUtilEtiqueta,
         alturaEtiqueta=alturaUtilEtiqueta,
-        imprimirGrade=False  # False
+        imprimirGrade=True  # False
         )
 
     # plotando todas as informações no documento

@@ -88,7 +88,7 @@ def mining_article(site_farm):
     article_text = re.sub('<[^<]+?>', '', article_text)
 
     # criando um repositório para armazenar os artigos
-    data_folder = data_folder = 'source_data/Meio Bit/'
+    data_folder = 'source_data/Meio Bit/'
 
     # verificando se já existe um arquivo txt para não ocorrer duplicidades
     if not os.path.exists(data_folder + archive_name):
