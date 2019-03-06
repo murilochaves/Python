@@ -1,7 +1,7 @@
 # Python
 Criado por **Murilo Chaves Jayme**
 
-Repositório de alguns códigos amadores que farei em Python, afim de promover um melhor estudo e organização.
+Repositório de alguns códigos amadores que farei em Python, afim de promover um melhor estudo e organização, apenas para fins educacionais.
 
 - **Motivação**:
     - Legibilidade e alto nível de abstração: sintaxe similar à linguagem natural, fácil leitura;
